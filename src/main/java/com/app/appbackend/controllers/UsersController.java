@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin()
 @RequestMapping("/users")
 public class UsersController {
 
@@ -43,7 +43,7 @@ public class UsersController {
     }
 
     @ApiOperation("Updates user information")
-    @PutMapping
+    @PutMapping()
     public User updateUser(@RequestBody User user) {
         return usersDao.update(user);
     }
