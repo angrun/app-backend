@@ -43,7 +43,7 @@ public class UsersController {
     }
 
     @ApiOperation("Updates user information")
-    @PutMapping
+    @PutMapping()
     public User updateUser(@RequestBody User user) {
         return usersDao.update(user);
     }

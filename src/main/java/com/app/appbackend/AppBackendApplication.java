@@ -33,5 +33,4 @@ public class AppBackendApplication {
 //        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 //        return bean;
 //    }
-
 }
