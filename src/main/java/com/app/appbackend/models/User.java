@@ -51,7 +51,27 @@ public class User {
     @Column
     Integer likes;
 
-//    @Column
+    @Column
+    String bio;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", password='" + password + '\'' +
+                ", password2='" + password2 + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birth='" + birth + '\'' +
+                ", likes=" + likes +
+                ", bio='" + bio + '\'' +
+                '}';
+    }
+
+    //    @Column
 //    String hobby [];
 
 

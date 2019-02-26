@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin()
 @RequestMapping("/users")
 public class UsersController {
 
@@ -31,7 +31,7 @@ public class UsersController {
 
 
     @ApiOperation("Gets all users registered")
-    @GetMapping("/users")
+    @GetMapping
     public List<User> getAllUsers() {
         return usersDao.getAllUsers();
     }
@@ -49,13 +49,13 @@ public class UsersController {
     }
 
     @ApiOperation("Deletes user with specific id")
-    @DeleteMapping("users/{userId}")
+    @DeleteMapping("/{userId}")
     public void deleteUserById(@PathVariable("userId") Long userId) {
         usersDao.delete(userId);
     }
 
     @ApiOperation("Deletes all users")
-    @DeleteMapping("users")
+    @DeleteMapping
     public void delete() {
         usersDao.delete();
     }

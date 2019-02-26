@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS "user" (
   gender    VARCHAR(50),
   birth     VARCHAR(50),
   likes     INT DEFAULT 0,
-  hobby     TEXT []
+  hobby     TEXT [],
+  bio       VARCHAR(100) DEFAULT NULL
 
 );
 
@@ -28,9 +29,9 @@ CREATE TABLE IF NOT EXISTS "hobby" (
 
 --changeset nvoxland:2
 
-insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby)
+insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
 values ('Anna', 'Grund',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '23-10-1997', 1, ARRAY [ '(408)-589-5846',
- '(408)-589-5555' ]);
+ '(408)-589-5555' ], 'I love coding');
 
 -- insert into "user" (name, surname, password, password2, city, country, gender, birth, likes)
 -- values ('Marina', 'Ivanova', 'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2017-04-30', 20);
