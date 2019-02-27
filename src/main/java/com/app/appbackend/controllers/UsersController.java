@@ -36,11 +36,6 @@ public class UsersController {
         return usersDao.getAllUsers();
     }
 
-    @ApiOperation("Gets mostly liked users")
-    @GetMapping("/likes")
-    public List<User> getUsersWithGreatestLikes() {
-        return usersDao.getUsersWithGreatestLikes();
-    }
 
     @ApiOperation("Updates user information")
     @PutMapping()

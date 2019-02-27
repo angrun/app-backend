@@ -55,9 +55,5 @@ public class UsersDao {
         query.executeUpdate();
     }
 
-    public List<User> getUsersWithGreatestLikes() {
 
-        TypedQuery<User> query = em.createQuery("Select u from User u order by u.likes desc", User.class);
-        return query.getResultList();
-    }
 }
