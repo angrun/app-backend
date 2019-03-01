@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -24,28 +26,49 @@ public class User {
     @GeneratedValue
     Long id;
 
+    @NotNull
+    @NotEmpty
     @Column
     String name;
 
     @Column
+    @NotNull
+    @NotEmpty
     String surname;
 
     @Column
+    @NotNull
+    @NotEmpty
+    String email;
+
+    @Column
+    @NotNull
+    @NotEmpty
     String password;
 
     @Column
+    @NotNull
+    @NotEmpty
     String password2;
 
     @Column
+    @NotNull
+    @NotEmpty
     String city;
 
     @Column
+    @NotNull
+    @NotEmpty
     String country;
 
     @Column
+    @NotNull
+    @NotEmpty
     String gender;
 
     @Column
+    @NotNull
+    @NotEmpty
     String birth;
 
     @Column
@@ -53,6 +76,9 @@ public class User {
 
     @Column
     String bio;
+
+    @Column
+    String registerDate;
 
     @Override
     public String toString() {

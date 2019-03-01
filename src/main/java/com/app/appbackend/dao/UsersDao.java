@@ -18,10 +18,6 @@ public class UsersDao {
     public EntityManager em;
 
 
-    public List<User> getAllUsers() {
-        return em.createQuery("select u from User u", User.class).getResultList();
-    }
-
     public User getUserById(Long id) {
 
         TypedQuery<User> query = em.createQuery("select u from User u where u.id = :id", User.class);

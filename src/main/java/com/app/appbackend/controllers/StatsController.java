@@ -4,7 +4,6 @@ package com.app.appbackend.controllers;
 import com.app.appbackend.dao.StatsDao;
 import com.app.appbackend.models.User;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,7 @@ public class StatsController {
 
     @ApiOperation("Returns users genders count")
     @GetMapping
-    public List<Long> getGenderEquality() {
+    public List<Long> getGenderProportion() {
 
         return statsDao.getGenderEquality();
     }

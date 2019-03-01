@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @CrossOrigin()
 @RequestMapping("/users")
@@ -28,14 +26,6 @@ public class UsersController {
     public User getUserById(@PathVariable("userId") Long userId) {
         return usersDao.getUserById(userId);
     }
-
-
-    @ApiOperation("Gets all users registered")
-    @GetMapping
-    public List<User> getAllUsers() {
-        return usersDao.getAllUsers();
-    }
-
 
     @ApiOperation("Updates user information")
     @PutMapping()
