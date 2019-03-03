@@ -14,12 +14,11 @@ CREATE TABLE IF NOT EXISTS "user" (
   city      VARCHAR(100),
   country   VARCHAR(100),
   gender    VARCHAR(50),
-  birth     VARCHAR(50),
+  birth     DATE,
   likes     INT DEFAULT 0,
   hobby     TEXT [],
   bio       VARCHAR(100) DEFAULT NULL,
-  registerDate VARCHAR(50)
-
+  register_date DATE
 );
 
 CREATE TABLE IF NOT EXISTS "hobby" (
@@ -27,12 +26,24 @@ CREATE TABLE IF NOT EXISTS "hobby" (
   name      VARCHAR(50)
 );
 
+
+CREATE TABLE IF NOT EXISTS "image" (
+  id        SERIAL PRIMARY KEY,
+  name      VARCHAR(100),
+  user_id INTEGER  NOT NULL,
+  date_created DATE,
+  FOREIGN KEY (user_id) REFERENCES "user" (id)
+
+);
+
+
+
 --rollback drop table user;
 
 --changeset nvoxland:2
 
-insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, registerDate)
-values ('Anna', 'Grund', 'angrun@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '23-10-1997', 14, ARRAY ['(408)-589-5846'], 'I love coding', '28-02-2019');
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Anna', 'Grund', 'angrun@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 14, ARRAY ['(408)-589-5846'], 'I love coding', '2001-02-16');
 
 -- insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
 -- values ('Marina', 'Ivanova',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '22-02-1999', 22, ARRAY [ '(408)-589-5846',

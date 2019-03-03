@@ -1,6 +1,7 @@
 package com.app.appbackend.utils;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class Utils {
 
 
-    public int getUserAge(LocalDate birthDate, LocalDate currentDate) {
+    public static int getUserAge(LocalDate birthDate, LocalDate currentDate) {
 
         if ((birthDate != null) && (currentDate != null)) {
             return Period.between(birthDate, currentDate).getYears();
@@ -18,7 +19,7 @@ public class Utils {
     }
 
     public static void main(String[] args) {
-        System.out.println(ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME));
+        System.out.println(getUserAge(LocalDate.of(1997, 10, 23), LocalDate.now()));
     }
 
 

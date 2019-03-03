@@ -9,9 +9,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 
 @Entity
@@ -67,9 +69,7 @@ public class User {
     String gender;
 
     @Column
-    @NotNull
-    @NotEmpty
-    String birth;
+    LocalDate birth;
 
     @Column
     Integer likes;
@@ -77,8 +77,8 @@ public class User {
     @Column
     String bio;
 
-    @Column
-    String registerDate;
+    @Column(name = "register_date")
+    LocalDate registerDate;
 
     @Override
     public String toString() {
@@ -96,9 +96,6 @@ public class User {
                 ", bio='" + bio + '\'' +
                 '}';
     }
-
-    //    @Column
-//    String hobby [];
 
 
 }

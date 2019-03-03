@@ -12,3 +12,4 @@ spring:
       hibernate.jdbc.lob.non_contextual_creation: true
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
+
