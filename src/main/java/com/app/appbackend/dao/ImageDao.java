@@ -20,7 +20,8 @@ import java.util.Objects;
 @Service
 public class ImageDao {
 
-    private static String UPLOAD_ROOT = "upload-dir";
+    private static String UPLOAD_ROOT = "src/main/resources/images";
+    public MultipartFile ues;
 
     @Autowired
     ResourceLoader resourceLoader;
@@ -48,11 +49,13 @@ public class ImageDao {
     @Transactional
     public void createImage(MultipartFile file) throws IOException {
 
+        ues = file;
+
         if (!file.isEmpty()) {
             Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
 
             Image image = new Image();
-            image.setName(file.getOriginalFilename());
+            image.setName("images/" + file.getOriginalFilename());
             image.setUserId(1L);
             image.setDateCreated(LocalDate.now());
             em.persist(image);
@@ -60,9 +63,7 @@ public class ImageDao {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        System.out.println(new ImageDao().getImage("test.jpeg"));
-    }
+
 
 
 //    @Bean

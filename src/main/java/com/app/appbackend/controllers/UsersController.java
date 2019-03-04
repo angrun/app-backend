@@ -34,7 +34,7 @@ public class UsersController {
 
     @ApiOperation("Gets the user with the specific id")
     @GetMapping(value = "/{userId}", produces = "application/json")
-    public UserView getUserById(@PathVariable("userId") Long userId) {
+    public UserView getUserById(@PathVariable("userId") Long userId) throws IOException {
         return usersDao.getUserById(userId);
     }
 
