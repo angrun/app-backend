@@ -6,6 +6,7 @@ import com.app.appbackend.models.User;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +25,6 @@ public class RegistrationController {
     public User registerUser(@RequestBody User user) {
         return userRegistrationDao.register(user);
     }
+
 
 }

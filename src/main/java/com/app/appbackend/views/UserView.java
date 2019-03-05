@@ -1,5 +1,6 @@
 package com.app.appbackend.views;
 
+import com.app.appbackend.models.Image;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,6 +47,6 @@ public class UserView {
 
     LocalDate registerDate;
 
-    String image;
+    List<Image> image;
 
 }

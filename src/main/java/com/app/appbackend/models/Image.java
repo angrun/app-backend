@@ -34,4 +34,20 @@ public class Image {
     @Column(name = "date_created")
     LocalDate dateCreated;
 
+    public Image(String name, Long userId, LocalDate dateCreated) {
+        this.name = name;
+        this.userId = userId;
+        this.dateCreated = dateCreated;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userId=" + userId +
+                ", dateCreated=" + dateCreated +
+                '}';
+    }
 }

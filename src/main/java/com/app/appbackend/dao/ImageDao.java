@@ -20,7 +20,7 @@ import java.util.Objects;
 @Service
 public class ImageDao {
 
-    private static String UPLOAD_ROOT = "src/main/resources/images";
+    private static String UPLOAD_ROOT = "src/main/resources/static";
     public MultipartFile ues;
 
     @Autowired
@@ -55,7 +55,7 @@ public class ImageDao {
             Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
 
             Image image = new Image();
-            image.setName("images/" + file.getOriginalFilename());
+            image.setName("http://localhost:8081/" + file.getOriginalFilename());
             image.setUserId(1L);
             image.setDateCreated(LocalDate.now());
             em.persist(image);
