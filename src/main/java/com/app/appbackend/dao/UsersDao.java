@@ -49,7 +49,7 @@ public class UsersDao {
         List<Image> resultList = query1.getResultList();
 
         if (resultList.isEmpty()) {
-            resultList.add(new Image("http://localhost:8081/anonym.png", user.getId(), LocalDate.now()));
+            resultList.add(new Image("http://localhost:8081/images/anonym.png", user.getId(), LocalDate.now()));
         }
 
 
