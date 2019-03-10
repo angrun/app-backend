@@ -9,24 +9,26 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Service
 public class ImageDao {
 
     private static String UPLOAD_ROOT = "images";
+    private static final String SERVER_ADD = "http://localhost:8081";
     public MultipartFile ues;
 
     @Autowired
     ResourceLoader resourceLoader;
-    @Autowired
-    UsersDao usersDao;
 
     @PersistenceContext
     public EntityManager em;
@@ -38,32 +40,37 @@ public class ImageDao {
     }
 
 
-    public File getImage(String filename) throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        System.out.println(classLoader);
-        System.out.println(classLoader.getResource(filename));
-        File fi = new File(classLoader.getResource(filename).getFile());
-        return fi;
-    }
-
     @Transactional
     public void createImage(MultipartFile file) throws IOException {
 
         ues = file;
 
+        //TODO: FIND THE WAY TO MAKE PICS UNIQUE
         if (!file.isEmpty()) {
             Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
 
             Image image = new Image();
-            image.setName("http://localhost:8081/images/" + file.getOriginalFilename());
+            image.setName(SERVER_ADD + "/" + UPLOAD_ROOT + "/" + file.getOriginalFilename());
             image.setUserId(1L);
-            image.setDateCreated(LocalDate.now());
+            image.setDateCreated(LocalDateTime.now());
             em.persist(image);
 
         }
     }
 
+    public List<Image> getUserImages(Long userId) {
 
+        //TODO: DATETIME MORE SPECIFIC FOR IMAGES
+        TypedQuery<Image> query1 = em.createQuery("select i from Image i where i.userId = :userId order by i.dateCreated DESC ", Image.class);
+        query1.setParameter("userId", userId);
+        List<Image> resultList = query1.getResultList();
+
+        if (resultList.isEmpty()) {
+            resultList.add(new Image(SERVER_ADD + "/" + UPLOAD_ROOT + "/" + " anonym.png", userId, LocalDateTime.now()));
+        }
+
+        return resultList;
+    }
 
 
 //    @Bean

@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS "image" (
   id        SERIAL PRIMARY KEY,
   name      VARCHAR(100),
   user_id INTEGER  NOT NULL,
-  date_created DATE,
+  date_created timestamp,
   FOREIGN KEY (user_id) REFERENCES "user" (id)
 
 );

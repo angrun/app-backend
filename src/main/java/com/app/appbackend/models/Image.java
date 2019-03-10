@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Setter
@@ -32,9 +33,9 @@ public class Image {
     Long userId;
 
     @Column(name = "date_created")
-    LocalDate dateCreated;
+    LocalDateTime dateCreated;
 
-    public Image(String name, Long userId, LocalDate dateCreated) {
+    public Image(String name, Long userId, LocalDateTime dateCreated) {
         this.name = name;
         this.userId = userId;
         this.dateCreated = dateCreated;

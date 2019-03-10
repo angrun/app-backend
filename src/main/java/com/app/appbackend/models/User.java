@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -28,47 +34,49 @@ public class User {
     @GeneratedValue
     Long id;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Name is compulsory")
     @Column
+    @NotEmpty(message = "Name is compulsory")
     String name;
 
     @Column
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Surname is compulsory")
+    @NotEmpty(message = "Surname is compulsory")
     String surname;
 
     @Column
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Email is compulsory")
+    @NotEmpty(message = "Email is compulsory")
+    @Email(message = "Email format is invalid")
     String email;
 
     @Column
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Password is compulsory")
+    @Length(min = 5, message = "Password should be at least 5 characters")
     String password;
 
     @Column
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Confirm your password")
+    @Length(min = 5, message = "Password should be at least 5 characters")
     String password2;
 
     @Column
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "City is compulsory")
+    @NotEmpty(message = "City is compulsory")
     String city;
 
     @Column
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Country is compulsory")
+    @NotEmpty(message = "Country is compulsory")
     String country;
 
     @Column
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Gender is compulsory")
+    @NotEmpty(message = "Gender is compulsory")
     String gender;
 
     @Column
+    @NotNull(message = "Birthday is compulsory")
     LocalDate birth;
 
     @Column
