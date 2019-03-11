@@ -4,7 +4,6 @@ package com.app.appbackend.dao;
 import com.app.appbackend.models.Image;
 import com.app.appbackend.models.User;
 import com.app.appbackend.utils.Utils;
-import com.app.appbackend.validation.UserValidator;
 import com.app.appbackend.views.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;

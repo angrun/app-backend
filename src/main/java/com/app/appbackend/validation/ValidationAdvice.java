@@ -12,10 +12,11 @@ import java.util.List;
 public class ValidationAdvice {
 
     @ResponseBody
-    @ExceptionHandler
+    @ExceptionHandler()
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ValidationErrors handleMethodArgumentNotValid(
-            MethodArgumentNotValidException exception) {
+    public ValidationErrors handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+
+        System.out.println(" I WAS HERE");
 
         List<FieldError> errors = exception.getBindingResult().getFieldErrors();
 
@@ -28,5 +29,14 @@ public class ValidationAdvice {
         }
 
         return ve;
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public Object processValidationError(NotFoundException ex) {
+
+        return new ValidationError(ex.getErrorMessage(), null);
+
     }
 }
