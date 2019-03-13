@@ -30,6 +30,7 @@ public class ImageDao {
     @Autowired
     ResourceLoader resourceLoader;
 
+
     @PersistenceContext
     public EntityManager em;
 
@@ -66,7 +67,7 @@ public class ImageDao {
         List<Image> resultList = query1.getResultList();
 
         if (resultList.isEmpty()) {
-            resultList.add(new Image(SERVER_ADD + "/" + UPLOAD_ROOT + "/" + " anonym.png", userId, LocalDateTime.now()));
+            resultList.add(new Image(SERVER_ADD + "/anonym.png/", userId, LocalDateTime.now()));
         }
 
         return resultList;
