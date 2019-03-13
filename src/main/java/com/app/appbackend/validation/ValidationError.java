@@ -2,17 +2,15 @@ package com.app.appbackend.validation;
 
 import lombok.Getter;
 
-import java.util.List;
 
 @Getter
-
 public class ValidationError {
 
-    public ValidationError(String code, List<String> arguments) {
+    public ValidationError(String message, Integer code) {
+        this.message = message;
         this.code = code;
-        this.arguments = arguments;
     }
 
-    private String code;
-    private List<String> arguments;
+    private Integer code;
+    private String message;
 }

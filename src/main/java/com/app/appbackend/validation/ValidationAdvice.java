@@ -1,6 +1,7 @@
 package com.app.appbackend.validation;
 
 
+import com.app.appbackend.exceptions.InvalidUserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,12 +32,12 @@ public class ValidationAdvice {
         return ve;
     }
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(InvalidUserException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public Object processValidationError(NotFoundException ex) {
+    public Object processValidationError(InvalidUserException ex) {
 
-        return new ValidationError(ex.getErrorMessage(), null);
+        return new ValidationError(ex.getErrorMessage(), ex.getErrorCode());
 
     }
 }

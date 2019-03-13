@@ -1,7 +1,7 @@
 package com.app.appbackend.dao;
 
 import com.app.appbackend.models.User;
-import com.app.appbackend.validation.NotFoundException;
+import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.views.UserLoginView;
 import org.springframework.stereotype.Repository;
 
@@ -30,13 +30,11 @@ public class UserAuthorizationDao {
     }
 
 
-    public List<User> logIn(UserLoginView userLoginView) throws NotFoundException {
+    public List<User> logIn(UserLoginView userLoginView) throws InvalidUserException {
 
         TypedQuery<User> query = em.createQuery("select u from User u where u.email = :email AND u.password = :password", User.class);
         query.setParameter("email", userLoginView.email);
         query.setParameter("password", userLoginView.password);
-
-        System.out.println("LIST " + query.getResultList());
 
         return query.getResultList();
 

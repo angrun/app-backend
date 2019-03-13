@@ -3,7 +3,7 @@ package com.app.appbackend.controllers;
 
 import com.app.appbackend.dao.UserAuthorizationDao;
 import com.app.appbackend.models.User;
-import com.app.appbackend.validation.NotFoundException;
+import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.views.UserLoginView;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class RegistrationController {
         List<User> users = userAuthorizationDao.logIn(userLoginView);
 
         if (users.isEmpty()) {
-            throw new NotFoundException("Not such user", 400);
+            throw new InvalidUserException("Not such user", 400);
         }
 
         return users.get(0);

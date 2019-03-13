@@ -43,49 +43,53 @@ CREATE TABLE IF NOT EXISTS "image" (
 --changeset nvoxland:2
 
 insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
-values ('Anna', 'Grund', 'angrun@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 14, ARRAY ['(408)-589-5846'], 'I love coding', '2001-02-16');
+values ('Anna', 'Grund', 'angrun@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 14, ARRAY ['(408)-589-5846'], 'I love coding', '2019-01-01');
 
--- insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
--- values ('Marina', 'Ivanova',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '22-02-1999', 22, ARRAY [ '(408)-589-5846',
---  '(408)-589-5555' ], 'I love bodyPump');
---
---
--- insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
---  values ('Katarina', 'Piven',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '22-02-1998', 12, ARRAY [ '(408)-589-5846',
---  '(408)-589-5555' ], 'I would really like to become a developer');
---
---   insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
--- values ('Lilia', 'Tünts', 'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '28-08-1998', 5, ARRAY [ '(408)-589-5846',
--- '(408)-589-5555' ], 'I am very angry when I am hungry');
---
---  insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
---  values ('Marina', 'Voskanjan',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '24-02-1997', 7, ARRAY [ '(408)-589-5846',
---  '(408)-589-5555' ], 'I love flexing');
---
---   insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
---  values ('Ruslan', 'Eskov',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '09-09-1998', 9, ARRAY [ '(408)-589-5846',
---   '(408)-589-5555' ], 'I love fencing');
---
---   insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
---  values ('Roman', 'Bondarev',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '11-11-1998', 32, ARRAY [ '(408)-589-5846',
---  '(408)-589-5555' ], 'I am Junior Developer');
---
---  insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
---  values ('Andrei', 'Anissimov',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '24-08-1998', 12, ARRAY [ '(408)-589-5846',
---   '(408)-589-5555' ], 'I am on chill');
---
---   insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
---  values ('Jekaterina', 'Viltsenko',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '31-12-1997', 4, ARRAY [ '(408)-589-5846',
---   '(408)-589-5555' ], 'I want to become a thread analytic');
---
---  insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
---  values ('Martin', 'Rebane',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '23-10-1997', 20, ARRAY [ '(408)-589-5846',
---  '(408)-589-5555' ], 'I love my job');
---
---    insert into "user" (name, surname, password, password2, city, country, gender, birth, likes, hobby, bio)
---  values ('Veiko', 'Soomets',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '21-05-1997', 3, ARRAY [ '(408)-589-5846',
---  '(408)-589-5555' ], 'I love my students too');
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Marina', 'Ivanova', 'mariiv@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 16, ARRAY ['(408)-589-5846'], 'I love bodyPump', '2019-01-02');
 
 
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Lilia', 'Tünts', 'litunts@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 3, ARRAY ['(408)-589-5846'], 'I hate stupid students', '2019-01-01');
+
+
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Marina', 'Voskonjan', 'mavosk@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 40, ARRAY ['(408)-589-5846'], 'I love flexing', '2019-01-05');
+
+
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Katarina', 'Piven', 'kapive@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 34, ARRAY ['(408)-589-5846'], 'I love design', '2019-01-05');
+
+
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Roman', 'Bondarev', 'robond@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '2001-02-16', 30, ARRAY ['(408)-589-5846'], 'I love coding in Kodality', '2019-01-05');
+
+
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Ruslan', 'Eskov', 'ruesko@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '2001-02-16', 44, ARRAY ['(408)-589-5846'], 'I love fencing', '2019-01-10');
+
+
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Andrei', 'Anissimov', 'ananni@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '2001-02-16', 14, ARRAY ['(408)-589-5846'], 'I am having a break now', '2019-01-11');
+
+
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Denis', 'Smirnov', 'densmir@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '2001-02-16',40, ARRAY ['(408)-589-5846'], 'I love medicine', '2019-01-12');
+
+
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Aleksandr', 'Boyko', 'aboyko@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '2001-02-16', 100, ARRAY ['(408)-589-5846'], 'I love coding', '2019-01-15');
+
+
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Jekaterina', 'Viltsenko', 'jevilt@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 42, ARRAY ['(408)-589-5846'], 'I love tehno', '2019-01-20');
+
+
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Inna', 'Schwarzman', 'inswarz@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 60, ARRAY ['(408)-589-5846'], 'I love teaching', '2019-01-25');
+
+
+insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
+values ('Veiko', 'Saar', 'vesaar@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '2001-02-16', 14, ARRAY ['(408)-589-5846'], 'I love LHV', '2019-01-30');
 
 
