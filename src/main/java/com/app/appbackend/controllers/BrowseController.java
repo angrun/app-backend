@@ -3,6 +3,7 @@ package com.app.appbackend.controllers;
 
 import com.app.appbackend.dao.BrowseDao;
 import com.app.appbackend.models.User;
+import com.app.appbackend.views.UserView;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +23,7 @@ public class BrowseController {
 
     @GetMapping("/all")
     @ApiOperation("Gets all users")
-    public List<User> getAllUsers() {
+    public List<UserView> getAllUsers() {
         return browseDao.getAllUsers();
     }
 

@@ -47,6 +47,12 @@ public class ImageDao {
         ues = file;
 
         //TODO: FIND THE WAY TO MAKE PICS UNIQUE
+        //TODO: NEUTRAL SERVER NAME
+        //TODO: ENPOINT FOR MONTH STATISTICS
+        // TODO: EXPEPTION WITH PICTURE WITH MAX SIZE
+        //TODO: VALIDATION FIXES AND AUTHORIZATION
+        // TODO: create folder if such does not yet exist
+        //TODO: imageviev to getAllUsers
         if (!file.isEmpty()) {
             Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
 
