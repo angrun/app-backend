@@ -2,6 +2,7 @@ package com.app.appbackend.dao;
 
 import com.app.appbackend.models.Image;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -23,13 +25,16 @@ import java.util.Objects;
 @Service
 public class ImageDao {
 
-    private static String UPLOAD_ROOT = "images";
-    private static final String SERVER_ADD = "http://localhost:8081";
+    private static String UPLOAD_ROOT = "images/";
+    private static final String SERVER_ADD = "http://" + InetAddress.getLoopbackAddress().getHostName();
+    private static final String DEFAULT_PIC = "/anonym.png";
     public MultipartFile ues;
 
     @Autowired
     ResourceLoader resourceLoader;
 
+    @Autowired
+    Environment environment;
 
     @PersistenceContext
     public EntityManager em;
@@ -37,27 +42,29 @@ public class ImageDao {
 
     //Probably works
     public Resource findOneImage(String filename) {
-        return resourceLoader.getResource("file:" + UPLOAD_ROOT + "/" + filename);
+        return resourceLoader.getResource("file:" + UPLOAD_ROOT  + filename);
     }
 
 
     @Transactional
     public void createImage(MultipartFile file) throws IOException {
 
+        System.out.println(file.getSize());
+
         ues = file;
 
         //TODO: FIND THE WAY TO MAKE PICS UNIQUE
-        //TODO: NEUTRAL SERVER NAME
         //TODO: ENPOINT FOR MONTH STATISTICS
-        // TODO: EXPEPTION WITH PICTURE WITH MAX SIZE
-        //TODO: VALIDATION FIXES AND AUTHORIZATION
+        // TODO: TOKEN
         // TODO: create folder if such does not yet exist
-        //TODO: imageviev to getAllUsers
+        // TODO: RETURN PICTURES
+
+
         if (!file.isEmpty()) {
             Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
 
             Image image = new Image();
-            image.setName(SERVER_ADD + "/" + UPLOAD_ROOT + "/" + file.getOriginalFilename());
+            image.setName(SERVER_ADD + ":" + environment.getProperty("server.port") + "/" + UPLOAD_ROOT  + file.getOriginalFilename());
             image.setUserId(1L);
             image.setDateCreated(LocalDateTime.now());
             em.persist(image);
@@ -67,13 +74,12 @@ public class ImageDao {
 
     public List<Image> getUserImages(Long userId) {
 
-        //TODO: DATETIME MORE SPECIFIC FOR IMAGES
         TypedQuery<Image> query1 = em.createQuery("select i from Image i where i.userId = :userId order by i.dateCreated DESC ", Image.class);
         query1.setParameter("userId", userId);
         List<Image> resultList = query1.getResultList();
 
         if (resultList.isEmpty()) {
-            resultList.add(new Image(SERVER_ADD + "/anonym.png/", userId, LocalDateTime.now()));
+            resultList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, userId, LocalDateTime.now()));
         }
 
         return resultList;

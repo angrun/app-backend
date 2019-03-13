@@ -43,7 +43,7 @@ public class BrowseDao {
             int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
 
             userViews.add(new UserView(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getCity(), user.getCountry(), user.getGender(),
-                    age, user.getLikes(), user.getBio(), user.getRegisterDate(), Arrays.asList(new Image("http://localhost:8081 /anonym.png/", user.getId(), LocalDateTime.now()))));
+                    age, user.getLikes(), user.getBio(), user.getRegisterDate(), Arrays.asList(new Image("http://localhost:8081/anonym.png/", user.getId(), LocalDateTime.now()))));
 
         }
 

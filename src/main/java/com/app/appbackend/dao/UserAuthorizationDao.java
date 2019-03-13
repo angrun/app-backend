@@ -1,7 +1,7 @@
 package com.app.appbackend.dao;
 
+
 import com.app.appbackend.models.User;
-import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.views.UserLoginView;
 import org.springframework.stereotype.Repository;
 
@@ -20,17 +20,18 @@ public class UserAuthorizationDao {
     public EntityManager em;
 
     @Transactional
-    public User register(User user) {
+    public User register(User user)  {
 
         user.setLikes(0);
         user.setRegisterDate(LocalDate.now());
+
 
         em.persist(user);
         return user;
     }
 
 
-    public List<User> logIn(UserLoginView userLoginView) throws InvalidUserException {
+    public List<User> logIn(UserLoginView userLoginView) {
 
         TypedQuery<User> query = em.createQuery("select u from User u where u.email = :email AND u.password = :password", User.class);
         query.setParameter("email", userLoginView.email);

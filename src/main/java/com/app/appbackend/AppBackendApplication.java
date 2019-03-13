@@ -2,14 +2,36 @@ package com.app.appbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 @CrossOrigin
 @SpringBootApplication
 public class AppBackendApplication {
 
+
     public static void main(String[] args) {
         SpringApplication.run(AppBackendApplication.class, args);
+
+
+
+
+//        InetAddress ip;
+//
+//        try {
+//            ip = InetAddress.getLocalHost();
+//        } catch (UnknownHostException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println(ip);
+
+
     }
 
 //    @Bean

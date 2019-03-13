@@ -6,7 +6,7 @@ import com.app.appbackend.models.User;
 import com.app.appbackend.utils.Utils;
 import com.app.appbackend.views.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
@@ -14,13 +14,9 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.swing.*;
 import javax.transaction.Transactional;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDate;
-import java.util.Base64;
 import java.util.List;
 
 @Repository
@@ -28,6 +24,9 @@ public class UsersDao {
 
     @PersistenceContext
     public EntityManager em;
+
+    @Autowired
+    Environment environment;
 
     @Autowired
     ResourceLoader resourceLoader;

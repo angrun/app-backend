@@ -36,6 +36,14 @@ CREATE TABLE IF NOT EXISTS "image" (
 
 );
 
+CREATE TABLE IF NOT EXISTS "like" (
+  id        SERIAL PRIMARY KEY,
+  from_user_id      INTEGER NOT NULL,
+  to_user_id INTEGER NOT NULL,
+  like_value INTEGER NOT NULL
+
+);
+
 
 
 --rollback drop table user;

@@ -3,31 +3,26 @@ package com.app.appbackend.validation;
 
 import com.app.appbackend.exceptions.InvalidUserException;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@ControllerAdvice //see on uks eriline klass, tegeleb uldiste sundmustega
+@ControllerAdvice
 public class ValidationAdvice {
 
     @ResponseBody
     @ExceptionHandler()
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ValidationErrors handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+    public Set<ObjectError> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
 
-        System.out.println(" I WAS HERE");
+        Set<ObjectError> ve;
 
-        List<FieldError> errors = exception.getBindingResult().getFieldErrors();
-
-        System.out.println("YES" + errors);
-
-        ValidationErrors ve = new ValidationErrors();
-
-        for (FieldError error : errors) {
-            ve.addError(error);
-        }
+        List<ObjectError> errors = exception.getBindingResult().getAllErrors();
+        ve = new HashSet<>(errors);
 
         return ve;
     }
@@ -35,9 +30,13 @@ public class ValidationAdvice {
     @ExceptionHandler(InvalidUserException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public Object processValidationError(InvalidUserException ex) {
+    public Set<ObjectError> processValidationError(InvalidUserException ex) {
 
-        return new ValidationError(ex.getErrorMessage(), ex.getErrorCode());
+        Set<ObjectError> ve = new HashSet<>();
+
+        ve.add(new ObjectError(ex.getErrorMessage(), ex.getErrorMessage()));
+
+        return ve;
 
     }
 }
