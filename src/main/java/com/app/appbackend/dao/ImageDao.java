@@ -17,10 +17,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class ImageDao {
@@ -28,7 +26,7 @@ public class ImageDao {
     private static String UPLOAD_ROOT = "images/";
     private static final String SERVER_ADD = "http://" + InetAddress.getLoopbackAddress().getHostName();
     private static final String DEFAULT_PIC = "/anonym.png";
-    public MultipartFile ues;
+
 
     @Autowired
     ResourceLoader resourceLoader;
@@ -40,9 +38,8 @@ public class ImageDao {
     public EntityManager em;
 
 
-    //Probably works
     public Resource findOneImage(String filename) {
-        return resourceLoader.getResource("file:" + UPLOAD_ROOT  + filename);
+        return resourceLoader.getResource("file:" + UPLOAD_ROOT + filename);
     }
 
 
@@ -51,25 +48,21 @@ public class ImageDao {
 
         System.out.println(file.getSize());
 
-        ues = file;
+        boolean check = new File(UPLOAD_ROOT, file.getOriginalFilename()).exists();
 
-        //TODO: FIND THE WAY TO MAKE PICS UNIQUE
-        //TODO: ENPOINT FOR MONTH STATISTICS
-        // TODO: TOKEN
-        // TODO: create folder if such does not yet exist
-        // TODO: RETURN PICTURES
+        if (!check) {
 
-
-        if (!file.isEmpty()) {
-            Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
-
-            Image image = new Image();
-            image.setName(SERVER_ADD + ":" + environment.getProperty("server.port") + "/" + UPLOAD_ROOT  + file.getOriginalFilename());
-            image.setUserId(1L);
-            image.setDateCreated(LocalDateTime.now());
-            em.persist(image);
-
+            if (!file.isEmpty()) {
+                Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
+            }
         }
+
+        Image image = new Image();
+        image.setName(SERVER_ADD + ":" + environment.getProperty("server.port") + "/" + UPLOAD_ROOT + file.getOriginalFilename());
+        image.setUserId(1L);
+        image.setDateCreated(LocalDateTime.now());
+        em.persist(image);
+
     }
 
     public List<Image> getUserImages(Long userId) {
