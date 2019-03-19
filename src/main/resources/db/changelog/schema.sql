@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS "image" (
 
 );
 
-CREATE TABLE IF NOT EXISTS "like" (
+CREATE TABLE IF NOT EXISTS "matching" (
   id        SERIAL PRIMARY KEY,
   from_user_id      INTEGER NOT NULL,
   to_user_id INTEGER NOT NULL,
@@ -101,3 +101,11 @@ insert into "user" (name, surname,email,  password, password2, city, country, ge
 values ('Veiko', 'Saar', 'vesaar@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'MALE', '2001-02-16', 14, ARRAY ['(408)-589-5846'], 'I love LHV', '2019-01-30');
 
 
+insert into "matching" (from_user_id, to_user_id, like_value)
+values (1, 13, 1);
+
+insert into "matching" (from_user_id, to_user_id, like_value)
+values (1, 11, 1);
+
+insert into "matching" (from_user_id, to_user_id, like_value)
+values (13, 1, 1);

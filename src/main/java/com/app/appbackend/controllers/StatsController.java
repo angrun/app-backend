@@ -36,4 +36,11 @@ public class StatsController {
     }
 
 
+    @ApiOperation("Return users matching percentage")
+    @GetMapping("/matchPercentage")
+    public double getUsersMatchingPercentage(Integer id) {
+        return statsDao.getMatchPercentage(id);
+    }
+
+
 }

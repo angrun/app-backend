@@ -20,13 +20,12 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.app.appbackend.utils.Utils.DEFAULT_PIC;
+import static com.app.appbackend.utils.Utils.SERVER_ADD;
+import static com.app.appbackend.utils.Utils.UPLOAD_ROOT;
+
 @Service
 public class ImageDao {
-
-    private static String UPLOAD_ROOT = "images/";
-    private static final String SERVER_ADD = "http://" + InetAddress.getLoopbackAddress().getHostName();
-    private static final String DEFAULT_PIC = "/anonym.png";
-
 
     @Autowired
     ResourceLoader resourceLoader;
@@ -67,7 +66,7 @@ public class ImageDao {
 
     public List<Image> getUserImages(Long userId) {
 
-        TypedQuery<Image> query1 = em.createQuery("select i from Image i where i.userId = :userId order by i.dateCreated DESC ", Image.class);
+        TypedQuery<Image> query1 = em.createQuery("SELECT i FROM Image i WHERE i.userId = :userId ORDER BY i.dateCreated DESC ", Image.class);
         query1.setParameter("userId", userId);
         List<Image> resultList = query1.getResultList();
 
