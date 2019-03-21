@@ -46,12 +46,18 @@ public class BrowseDao {
     public List<UserView> getAllUsers(FilterView filterView) {
 
 
-        Long userId = filterView.getId();
+        Integer userId = filterView.getId();
+        String city = filterView.getCity();
+        String country = filterView.getCountry();
+        String gender = filterView.getGender();
 
         TypedQuery<User> usersQuery =
-                em.createQuery("SELECT u FROM User u WHERE NOT EXISTS (SELECT m from Matching m  WHERE m.toUserId = :userId) " +
+                em.createQuery("SELECT u FROM User u WHERE u.id NOT IN (SELECT m.toUserId from Matching m  WHERE m.fromUserId = :userId) " +
                         "AND u.id <> :userId AND u.city = :city AND u.country = :country AND u.gender = :gender", User.class);
         usersQuery.setParameter("userId", userId);
+        usersQuery.setParameter("city", city);
+        usersQuery.setParameter("country", country);
+        usersQuery.setParameter("gender", gender);
 
         List<User> users = usersQuery.getResultList();
 

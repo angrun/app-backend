@@ -24,4 +24,6 @@ public class MatchingController {
     public List<UserView> getAllUsers(Integer id) {
         return matchingDao.getMatches(id);
     }
+
+
 }

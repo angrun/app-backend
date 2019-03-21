@@ -39,7 +39,7 @@ public class BrowseController {
 
     @PostMapping("/grade")
     @ApiOperation("Matching certain user")
-    public void likeUser(Matching matching) {
+    public void likeUser(@RequestBody Matching matching) {
         browseDao.gradeUser(matching);
     }
 }

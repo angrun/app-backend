@@ -13,7 +13,7 @@ import lombok.Setter;
 public class FilterView {
 
 
-    Long id;
+    Integer id;
 
     String city;
 
