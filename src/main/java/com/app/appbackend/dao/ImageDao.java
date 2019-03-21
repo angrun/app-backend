@@ -19,6 +19,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.app.appbackend.utils.Utils.DEFAULT_PIC;
 import static com.app.appbackend.utils.Utils.SERVER_ADD;
@@ -33,8 +35,15 @@ public class ImageDao {
     @Autowired
     Environment environment;
 
+    private Pattern pattern;
+    private Matcher matcher;
+
     @PersistenceContext
     public EntityManager em;
+
+
+    private static final String IMAGE_PATTERN =
+            "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)";
 
 
     public Resource findOneImage(String filename) {
@@ -44,6 +53,17 @@ public class ImageDao {
 
     @Transactional
     public void createImage(MultipartFile file) throws IOException {
+
+        pattern = Pattern.compile(IMAGE_PATTERN);
+
+        String fileName = file.getOriginalFilename();
+        System.out.println(fileName);
+
+        matcher = pattern.matcher(fileName);
+        System.out.println(matcher.matches());
+
+
+
 
         System.out.println(file.getSize());
 

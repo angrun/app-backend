@@ -4,6 +4,7 @@ import com.app.appbackend.models.Image;
 import com.app.appbackend.models.Matching;
 import com.app.appbackend.models.User;
 import com.app.appbackend.utils.Utils;
+import com.app.appbackend.views.FilterView;
 import com.app.appbackend.views.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -31,22 +32,28 @@ public class BrowseDao {
     Environment environment;
 
 
+//    public List<User> getFilteredUsers(String city, String country, String gender) {
+//
+//        TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE " +
+//                "u.city = :city AND u.country = :country AND u.gender = :gender", User.class);
+//        query1.setParameter("city", city);
+//        query1.setParameter("country", country);
+//        query1.setParameter("gender", gender);
+//
+//        return query1.getResultList();
+//    }
 
-    public List<User> getFilteredUsers(String city, String country, String gender) {
+    public List<UserView> getAllUsers(FilterView filterView) {
 
-        TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE " +
-                "u.city = :city AND u.country = :country AND u.gender = :gender", User.class);
-        query1.setParameter("city", city);
-        query1.setParameter("country", country);
-        query1.setParameter("gender", gender);
 
-        return query1.getResultList();
-    }
+        Long userId = filterView.getId();
 
-    public List<UserView> getAllUsers() {
+        TypedQuery<User> usersQuery =
+                em.createQuery("SELECT u FROM User u WHERE NOT EXISTS (SELECT m from Matching m  WHERE m.toUserId = :userId) " +
+                        "AND u.id <> :userId AND u.city = :city AND u.country = :country AND u.gender = :gender", User.class);
+        usersQuery.setParameter("userId", userId);
 
-        List<User> users =
-                em.createQuery("SELECT u FROM User u WHERE NOT EXISTS (SELECT m from Matching m  WHERE m.toUserId = u.id)", User.class).getResultList();
+        List<User> users = usersQuery.getResultList();
 
         List<UserView> userViews = new LinkedList<>();
 

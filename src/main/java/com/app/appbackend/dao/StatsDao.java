@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -52,6 +53,18 @@ public class  StatsDao {
         int totalLikes = query2.getResultList().size();
 
         return Math.round((double) totalMatches / totalLikes * 100);
+
+    }
+
+
+
+    public HashMap<String, Integer> getCountryPercentage() {
+
+        TypedQuery<Object[]> query1 = em.createQuery("SELECT u.user, COUNT(u.country) FROM User u GROUP BY u.country", Object[].class);
+        List<Object[]> resultList = query1.getResultList();
+        System.out.println(resultList);
+
+        return null;
 
     }
 }

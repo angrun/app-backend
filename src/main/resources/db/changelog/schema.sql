@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS "matching" (
 --changeset nvoxland:2
 
 insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
-values ('Anna', 'Grund', 'angrun@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 14, ARRAY ['(408)-589-5846'], 'I love coding', '2019-01-01');
+values ('Anna', 'Grund', 'angrun@ttu.ee',  'testtest', 'testtest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 14, ARRAY ['(408)-589-5846'], 'I love coding', '2019-01-01');
 
 insert into "user" (name, surname,email,  password, password2, city, country, gender, birth, likes, hobby, bio, register_date)
 values ('Marina', 'Ivanova', 'mariiv@ttu.ee',  'test', 'netest', 'Tallinn', 'Estonia', 'FEMALE', '2001-02-16', 16, ARRAY ['(408)-589-5846'], 'I love bodyPump', '2019-01-02');

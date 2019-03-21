@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,10 +38,16 @@ public class StatsController {
 
 
     @ApiOperation("Return users matching percentage")
-    @GetMapping("/matchPercentage")
-    public double getUsersMatchingPercentage(Integer id) {
-        return statsDao.getMatchPercentage(id);
+    @GetMapping("/matchPercentage/{userId}")
+    public double getUsersMatchingPercentage(@PathVariable Integer userId) {
+        return statsDao.getMatchPercentage(userId);
     }
+
+//    @ApiOperation("Return users matching percentage")
+//    @GetMapping("/matchPercentage")
+//    public double getUsersMatchingPercentage(Integer id) {
+//        return statsDao.getMatchPercentage(id);
+//    }
 
 
 }
