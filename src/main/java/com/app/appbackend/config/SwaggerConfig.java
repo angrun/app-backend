@@ -1,8 +1,6 @@
 package com.app.appbackend.config;
 
-import com.app.appbackend.controllers.UsersController;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.ApiInfoBuilder;

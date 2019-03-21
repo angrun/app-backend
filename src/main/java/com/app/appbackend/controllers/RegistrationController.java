@@ -33,10 +33,8 @@ public class RegistrationController {
     @ApiOperation("Registers new user in app")
     @PostMapping
     public User registerUser(@Valid @RequestBody User user) throws InvalidUserException {
-        System.out.println(user.getPassword());
 
         validation.validateUserRegistration(user);
-
         return userAuthorizationDao.register(user);
     }
 
@@ -46,7 +44,6 @@ public class RegistrationController {
     public User loginUser(@Valid @RequestBody UserLoginView userLoginView) throws Exception {
 
         List<User> users = userAuthorizationDao.logIn(userLoginView);
-
         validation.validateUserLogin(users);
 
         return users.get(0);

@@ -1,6 +1,8 @@
 package com.app.appbackend.dao;
 
+import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.models.Image;
+import com.app.appbackend.validation.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
@@ -14,13 +16,11 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 import static com.app.appbackend.utils.Utils.DEFAULT_PIC;
 import static com.app.appbackend.utils.Utils.SERVER_ADD;
@@ -35,15 +35,11 @@ public class ImageDao {
     @Autowired
     Environment environment;
 
-    private Pattern pattern;
-    private Matcher matcher;
+    @Autowired
+    Validation validation;
 
     @PersistenceContext
     public EntityManager em;
-
-
-    private static final String IMAGE_PATTERN =
-            "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)";
 
 
     public Resource findOneImage(String filename) {
@@ -52,22 +48,12 @@ public class ImageDao {
 
 
     @Transactional
-    public void createImage(MultipartFile file) throws IOException {
+    public void createImage(MultipartFile file) throws IOException, InvalidUserException {
 
-        pattern = Pattern.compile(IMAGE_PATTERN);
+        String filename = file.getOriginalFilename();
+        validation.validateImage(filename);
 
-        String fileName = file.getOriginalFilename();
-        System.out.println(fileName);
-
-        matcher = pattern.matcher(fileName);
-        System.out.println(matcher.matches());
-
-
-
-
-        System.out.println(file.getSize());
-
-        boolean check = new File(UPLOAD_ROOT, file.getOriginalFilename()).exists();
+        boolean check = new File(UPLOAD_ROOT, filename).exists();
 
         if (!check) {
 

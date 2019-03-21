@@ -2,6 +2,7 @@ package com.app.appbackend.controllers;
 
 import com.app.appbackend.dao.UsersDao;
 import com.app.appbackend.dao.ImageDao;
+import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.models.User;
 import com.app.appbackend.views.UserView;
 import io.swagger.annotations.ApiOperation;
@@ -46,7 +47,7 @@ public class UsersController {
 
     @ApiOperation("Updates user information")
     @PostMapping("images")
-    public void createFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public void createFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws InvalidUserException {
         try {
             imageDao.createImage(file);
         } catch (IOException e) {
