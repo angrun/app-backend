@@ -11,9 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 
 
-
 @Repository
-public class  StatsDao {
+public class StatsDao {
 
     @PersistenceContext
     public EntityManager em;
@@ -57,14 +56,18 @@ public class  StatsDao {
     }
 
 
+    public HashMap<String, Integer> getUsersByCountry() {
 
-    public HashMap<String, Integer> getCountryPercentage() {
-
-        TypedQuery<Object[]> query1 = em.createQuery("SELECT u.user, COUNT(u.country) FROM User u GROUP BY u.country", Object[].class);
+        TypedQuery<Object[]> query1 = em.createQuery("SELECT COUNT(u), u.country FROM User u GROUP BY u.country", Object[].class);
         List<Object[]> resultList = query1.getResultList();
-        System.out.println(resultList);
 
-        return null;
+        HashMap<String, Integer> country = new HashMap<>();
+
+        for (Object[] aResultList : resultList) {
+            country.put(aResultList[1].toString(), Integer.valueOf(aResultList[0].toString()));
+        }
+        return country;
 
     }
+
 }
