@@ -29,8 +29,6 @@ public class BrowseDao {
     @Autowired
     Environment environment;
 
-
-
     public List<User> getFilteredUsers(String city, String country, String gender) {
 
         TypedQuery<User> query1 = em.createQuery("select u from User u where " +
