@@ -3,7 +3,7 @@ spring:
   datasource:
     url: 'jdbc:postgresql://localhost:5432/testdb'
     username: 'postgres'
-    password: 'Petrikson28'
+    password: 'test'
 #    driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: 'org.hibernate.dialect.PostgreSQLDialect'
