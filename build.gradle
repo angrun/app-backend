@@ -28,18 +28,27 @@ dependencies {
     //jdbc
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     //security
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     //mysql
+    compile 'io.jsonwebtoken:jjwt-api:0.10.5'
+    compile 'io.jsonwebtoken:jjwt-impl:0.10.5'
+    compile 'io.jsonwebtoken:jjwt-jackson:0.10.5'
+    //Json Web Token
 
-    implementation("org.liquibase:liquibase-core")
+    implementation "org.liquibase:liquibase-core"
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    
     runtimeOnly 'org.postgresql:postgresql'
+    
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    
     compileOnly(group: 'org.projectlombok', name: 'lombok', version: '1.18.4')
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
 
 
 }
