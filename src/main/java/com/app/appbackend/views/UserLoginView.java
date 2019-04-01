@@ -12,6 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserLoginView {
 
-    public String email;
+    public String username;
     public String password;
 }
