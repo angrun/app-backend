@@ -34,11 +34,19 @@ public class UserAuthorizationDao {
     public List<User> logIn(UserLoginView userLoginView) {
 
         TypedQuery<User> query = em.createQuery("select u from User u where u.email = :email AND u.password = :password", User.class);
-        query.setParameter("email", userLoginView.email);
+        query.setParameter("email", userLoginView.username);
         query.setParameter("password", userLoginView.password);
 
         return query.getResultList();
 
+    }
+
+    public List<User> findByEmail(String email) {
+
+        TypedQuery<User> query = em.createQuery("select u from User u where u.email = :email", User.class);
+        query.setParameter("email", email);
+
+        return query.getResultList();
     }
 
 }
