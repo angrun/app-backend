@@ -8,12 +8,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class Validation {
 
     @PersistenceContext
     public EntityManager em;
+
+    private Pattern pattern;
+    private Matcher matcher;
+
+    private static final String IMAGE_PATTERN =
+            "([^\\s]+(\\.(?i)(jpg|png|jpeg))$)";
 
     public void validateUserRegistration(User user) throws InvalidUserException {
 
@@ -34,6 +42,16 @@ public class Validation {
             throw new InvalidUserException("Not such user", 400);
         }
 
+    }
+
+
+    public void validateImage(String image) throws InvalidUserException {
+
+        pattern = Pattern.compile(IMAGE_PATTERN);
+        matcher = pattern.matcher(image);
+        if (!matcher.matches()) {
+            throw new InvalidUserException("Allowed images formats: .jpg .png .jpeg", 400);
+        }
     }
 
 

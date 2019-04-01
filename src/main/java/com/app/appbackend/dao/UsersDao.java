@@ -35,9 +35,6 @@ public class UsersDao {
     ImageDao imageDao;
 
 
-
-
-
     public UserView getUserById(Long id) throws IOException {
 
         TypedQuery<User> query = em.createQuery("select u from User u where u.id = :id", User.class);

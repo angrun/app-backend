@@ -1,6 +1,8 @@
 package com.app.appbackend.dao;
 
+import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.models.Image;
+import com.app.appbackend.validation.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
@@ -14,25 +16,27 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+import static com.app.appbackend.utils.Utils.DEFAULT_PIC;
+import static com.app.appbackend.utils.Utils.SERVER_ADD;
+import static com.app.appbackend.utils.Utils.UPLOAD_ROOT;
+
 @Service
 public class ImageDao {
-
-    private static String UPLOAD_ROOT = "images/";
-    private static final String SERVER_ADD = "http://" + InetAddress.getLoopbackAddress().getHostName();
-    private static final String DEFAULT_PIC = "/anonym.png";
-
 
     @Autowired
     ResourceLoader resourceLoader;
 
     @Autowired
     Environment environment;
+
+    @Autowired
+    Validation validation;
 
     @PersistenceContext
     public EntityManager em;
@@ -44,11 +48,12 @@ public class ImageDao {
 
 
     @Transactional
-    public void createImage(MultipartFile file) throws IOException {
+    public void createImage(MultipartFile file) throws IOException, InvalidUserException {
 
-        System.out.println(file.getSize());
+        String filename = file.getOriginalFilename();
+        validation.validateImage(filename);
 
-        boolean check = new File(UPLOAD_ROOT, file.getOriginalFilename()).exists();
+        boolean check = new File(UPLOAD_ROOT, filename).exists();
 
         if (!check) {
 
@@ -67,7 +72,7 @@ public class ImageDao {
 
     public List<Image> getUserImages(Long userId) {
 
-        TypedQuery<Image> query1 = em.createQuery("select i from Image i where i.userId = :userId order by i.dateCreated DESC ", Image.class);
+        TypedQuery<Image> query1 = em.createQuery("SELECT i FROM Image i WHERE i.userId = :userId ORDER BY i.dateCreated DESC ", Image.class);
         query1.setParameter("userId", userId);
         List<Image> resultList = query1.getResultList();
 

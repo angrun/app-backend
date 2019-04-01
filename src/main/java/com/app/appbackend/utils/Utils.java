@@ -1,9 +1,14 @@
 package com.app.appbackend.utils;
 
+import java.net.InetAddress;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class Utils {
+
+    public static final String SERVER_ADD = "http://" + InetAddress.getLoopbackAddress().getHostName();
+    public static final String DEFAULT_PIC = "/anonym.png";
+    public static String UPLOAD_ROOT = "images/";
 
 
     public static int getUserAge(LocalDate birthDate, LocalDate currentDate) {
@@ -18,6 +23,7 @@ public class Utils {
     public static void main(String[] args) {
         System.out.println(getUserAge(LocalDate.of(1997, 10, 23), LocalDate.now()));
     }
+
 
 
 }

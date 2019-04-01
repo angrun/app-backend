@@ -1,17 +1,18 @@
 package com.app.appbackend.dao;
 
-import com.app.appbackend.models.User;
+import com.app.appbackend.models.User;;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 
 @Repository
-public class  StatsDao {
+public class StatsDao {
 
     @PersistenceContext
     public EntityManager em;
@@ -19,8 +20,8 @@ public class  StatsDao {
 
     public List<Long> getGenderEquality() {
 
-        TypedQuery<Long> query1 = em.createQuery("select COUNT(u) from User u where u.gender = :gender", Long.class);
-        TypedQuery<Long> query2 = em.createQuery("select COUNT(u) from User u where u.gender = :gender", Long.class);
+        TypedQuery<Long> query1 = em.createQuery("SELECT COUNT(u) FROM User u WHERE u.gender = :gender", Long.class);
+        TypedQuery<Long> query2 = em.createQuery("SELECT COUNT(u) FROM User u WHERE u.gender = :gender", Long.class);
         query1.setParameter("gender", "FEMALE");
         query2.setParameter("gender", "MALE");
         Long woman = query1.getSingleResult();
@@ -31,7 +32,42 @@ public class  StatsDao {
 
     public List<User> getUsersWithGreatestLikes() {
 
-        TypedQuery<User> query = em.createQuery("Select u from User u order by u.likes desc", User.class);
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u ORDER BY u.likes DESC", User.class);
         return query.setMaxResults(10).getResultList();
     }
+
+
+    public double getMatchPercentage(Integer id) {
+
+
+        TypedQuery<Integer> query1 = em.createQuery("SELECT m.toUserId FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
+                "AND m.toUserId IN (SELECT m.fromUserId FROM Matching m WHERE m.toUserId = :id AND m.likeValue = 1)", Integer.class);
+        query1.setParameter("id", id);
+
+        int totalMatches = query1.getResultList().size();
+
+        TypedQuery<Integer> query2 = em.createQuery("SELECT m.toUserId FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1", Integer.class);
+        query2.setParameter("id", id);
+
+        int totalLikes = query2.getResultList().size();
+
+        return Math.round((double) totalMatches / totalLikes * 100);
+
+    }
+
+
+    public HashMap<String, Integer> getUsersByCountry() {
+
+        TypedQuery<Object[]> query1 = em.createQuery("SELECT COUNT(u), u.country FROM User u GROUP BY u.country", Object[].class);
+        List<Object[]> resultList = query1.getResultList();
+
+        HashMap<String, Integer> country = new HashMap<>();
+
+        for (Object[] aResultList : resultList) {
+            country.put(aResultList[1].toString(), Integer.valueOf(aResultList[0].toString()));
+        }
+        return country;
+
+    }
+
 }

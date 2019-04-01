@@ -18,8 +18,8 @@ import javax.persistence.Table;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "like", schema = "public")
-public class Like {
+@Table(name = "matching", schema = "public")
+public class Matching {
 
     @Id
     @GeneratedValue
