@@ -43,13 +43,9 @@ public class BrowseDao {
 //        return query1.getResultList();
 //    }
 
-    public List<UserView> getAllUsers(FilterView filterView, String email) {
+    public List<UserView> getAllUsers(FilterView filterView) {
 
-        TypedQuery<User> query = em.createQuery("select u from User u where u.email = :email", User.class);
-        query.setParameter("email", email);
-        User client = query.getResultList().get(0);
-
-        Integer userId = client.getId().intValue();
+        Integer userId = filterView.getId();
         String city = filterView.getCity();
         String country = filterView.getCountry();
         String gender = filterView.getGender();

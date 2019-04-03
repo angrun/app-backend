@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin()
 @RequestMapping("/users")
 public class UsersController {
 
@@ -42,9 +41,11 @@ public class UsersController {
 
     @ApiOperation("Updates user information")
     @PostMapping("images")
-    public void createFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws InvalidUserException {
+    public void createFile(@RequestParam("file") MultipartFile file,
+                           @RequestHeader(value="Authorization") String authorization,
+                           RedirectAttributes redirectAttributes) throws InvalidUserException {
         try {
-            imageDao.createImage(file);
+            imageDao.createImage(file, decoder.getEmailFromToken(authorization));
         } catch (IOException e) {
             System.out.println("FAIL");
         }

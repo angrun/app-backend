@@ -2,6 +2,7 @@ package com.app.appbackend.controllers;
 
 
 import com.app.appbackend.dao.BrowseDao;
+import com.app.appbackend.dao.UsersDao;
 import com.app.appbackend.models.Matching;
 import com.app.appbackend.security.JwtDecoder;
 import com.app.appbackend.views.FilterView;
@@ -19,13 +20,15 @@ public class BrowseController {
     @Autowired
     BrowseDao browseDao;
 
+    @Autowired
+    UsersDao usersDao;
+
     private JwtDecoder decoder = new JwtDecoder();
 
     @GetMapping("/all")
     @ApiOperation("Gets all users")
-    public List<UserView> getAllUsers(@RequestHeader(value="Authorization") String authorization,
-                                      FilterView filterView) {
-        return browseDao.getAllUsers(filterView, decoder.getEmailFromToken(authorization));
+    public List<UserView> getAllUsers(FilterView filterView) {
+        return browseDao.getAllUsers(filterView);
     }
 
 
@@ -39,5 +42,11 @@ public class BrowseController {
     @ApiOperation("Matching certain user")
     public void likeUser(@RequestBody Matching matching) {
         browseDao.gradeUser(matching);
+    }
+
+    @GetMapping("/id")
+    @ApiOperation("Get id of active user")
+    public Long getId(@RequestHeader(value="Authorization") String authorization) {
+        return usersDao.getUserByEmail(decoder.getEmailFromToken(authorization)).getId();
     }
 }
