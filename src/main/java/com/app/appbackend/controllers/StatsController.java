@@ -48,14 +48,4 @@ public class StatsController {
         return statsDao.getUsersByCountry();
     }
 
-
-
-
-//    @ApiOperation("Return users matching percentage")
-//    @GetMapping("/matchPercentage")
-//    public double getUsersMatchingPercentage(Integer id) {
-//        return statsDao.getMatchPercentage(id);
-//    }
-
-
 }

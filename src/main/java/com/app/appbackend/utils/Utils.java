@@ -9,6 +9,7 @@ public class Utils {
     public static final String SERVER_ADD = "http://" + InetAddress.getLoopbackAddress().getHostName();
     public static final String DEFAULT_PIC = "/anonym.png";
     public static String UPLOAD_ROOT = "images/";
+    public static String ALLOWED_ADDRESS = "http://localhost:8080";
 
 
     public static int getUserAge(LocalDate birthDate, LocalDate currentDate) {

@@ -32,12 +32,6 @@ public class BrowseController {
     }
 
 
-//    @GetMapping("/filter")
-//    @ApiOperation("Gets filtered users")
-//    public List<User> getFilteredUsers(String city, String country, String gender) {
-//        return browseDao.getFilteredUsers(city, country, gender);
-//    }
-
     @PostMapping("/grade")
     @ApiOperation("Matching certain user")
     public void likeUser(@RequestBody Matching matching) {

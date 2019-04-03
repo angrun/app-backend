@@ -32,17 +32,6 @@ public class BrowseDao {
     Environment environment;
 
 
-//    public List<User> getFilteredUsers(String city, String country, String gender) {
-//
-//        TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE " +
-//                "u.city = :city AND u.country = :country AND u.gender = :gender", User.class);
-//        query1.setParameter("city", city);
-//        query1.setParameter("country", country);
-//        query1.setParameter("gender", gender);
-//
-//        return query1.getResultList();
-//    }
-
     public List<UserView> getAllUsers(FilterView filterView) {
 
         Integer userId = filterView.getId();

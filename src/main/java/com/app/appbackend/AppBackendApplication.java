@@ -9,21 +9,6 @@ public class AppBackendApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AppBackendApplication.class, args);
-
-
-
-
-//        InetAddress ip;
-//
-//        try {
-//            ip = InetAddress.getLocalHost();
-//        } catch (UnknownHostException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.println(ip);
-
-
     }
 
 //    @Bean

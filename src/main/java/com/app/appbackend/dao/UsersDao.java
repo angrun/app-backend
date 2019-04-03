@@ -52,21 +52,6 @@ public class UsersDao {
 
     }
 
-   /* public UserView getUserById(Long id) throws IOException {
-
-        TypedQuery<User> query = em.createQuery("select u from User u where u.id = :id", User.class);
-        query.setParameter("id", id);
-
-        User user = query.getResultList().isEmpty() ? null : query.getSingleResult();
-        assert user != null;
-
-        int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
-
-        List<Image> userImages = imageDao.getUserImages(id);
-
-        return new UserView(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getCity(), user.getCountry(), user.getGender(),
-                age, user.getLikes(), user.getBio(), user.getRegisterDate(), userImages);
-    }*/
 
     @Transactional
     @Modifying
@@ -83,24 +68,5 @@ public class UsersDao {
 
         return user;
     }
-
-//    @Transactional
-//    public void delete(Long userId) {
-//
-//        User user = em.find(User.class, userId);
-//
-//        if (user != null) {
-//            em.remove(user);
-//        }
-//    }
-//
-//
-//    @Transactional
-//    public void delete() {
-//
-//        Query query = em.createQuery("delete from User");
-//        query.executeUpdate();
-//    }
-
 
 }
