@@ -2,6 +2,7 @@ package com.app.appbackend.dao;
 
 import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.models.Image;
+import com.app.appbackend.models.User;
 import com.app.appbackend.validation.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -48,7 +49,12 @@ public class ImageDao {
 
 
     @Transactional
-    public void createImage(MultipartFile file) throws IOException, InvalidUserException {
+    public void createImage(MultipartFile file, String email) throws IOException, InvalidUserException {
+        TypedQuery<User> query = em.createQuery("select u from User u where u.email = :email", User.class);
+        query.setParameter("email", email);
+        User client = query.getResultList().get(0);
+
+        Long userId =client.getId();
 
         String filename = file.getOriginalFilename();
         validation.validateImage(filename);
@@ -64,7 +70,7 @@ public class ImageDao {
 
         Image image = new Image();
         image.setName(SERVER_ADD + ":" + environment.getProperty("server.port") + "/" + UPLOAD_ROOT + file.getOriginalFilename());
-        image.setUserId(1L);
+        image.setUserId(userId);
         image.setDateCreated(LocalDateTime.now());
         em.persist(image);
 
