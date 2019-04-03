@@ -18,7 +18,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        System.out.println("Email is:" + email);
         List<User> users = usersDao.findByEmail(email);
         if(email == null || email.equals("") || users.isEmpty()) {
             throw new UsernameNotFoundException("User not found");

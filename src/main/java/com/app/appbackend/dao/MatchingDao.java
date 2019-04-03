@@ -32,7 +32,13 @@ public class MatchingDao {
     Environment environment;
 
 
-    public List<UserView> getMatches(Integer id) {
+    public List<UserView> getMatches(String email) {
+
+        TypedQuery<User> query = em.createQuery("select u from User u where u.email = :email", User.class);
+        query.setParameter("email", email);
+        User client = query.getResultList().get(0);
+
+        Integer id = client.getId().intValue();
 
         List<UserView> userViews = new LinkedList<>();
 

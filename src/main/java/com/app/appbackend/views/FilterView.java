@@ -11,10 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FilterView {
-
-
-    Integer id;
-
     String city;
 
     String country;

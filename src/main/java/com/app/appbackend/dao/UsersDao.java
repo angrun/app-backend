@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -35,7 +34,25 @@ public class UsersDao {
     ImageDao imageDao;
 
 
-    public UserView getUserById(Long id) throws IOException {
+    public UserView getUserByEmail(String email) {
+
+        TypedQuery<User> query = em.createQuery("select u from User u where u.email = :email", User.class);
+        query.setParameter("email", email);
+
+        assert !query.getResultList().isEmpty();
+        User user = query.getResultList().isEmpty() ? null : query.getSingleResult();
+        assert user != null;
+
+        int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
+
+        List<Image> userImages = imageDao.getUserImages(user.getId());
+
+        return new UserView(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getCity(), user.getCountry(), user.getGender(),
+                age, user.getLikes(), user.getBio(), user.getRegisterDate(), userImages);
+
+    }
+
+   /* public UserView getUserById(Long id) throws IOException {
 
         TypedQuery<User> query = em.createQuery("select u from User u where u.id = :id", User.class);
         query.setParameter("id", id);
@@ -49,7 +66,7 @@ public class UsersDao {
 
         return new UserView(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getCity(), user.getCountry(), user.getGender(),
                 age, user.getLikes(), user.getBio(), user.getRegisterDate(), userImages);
-    }
+    }*/
 
     @Transactional
     @Modifying
