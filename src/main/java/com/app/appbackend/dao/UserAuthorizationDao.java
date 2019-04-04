@@ -1,7 +1,11 @@
 package com.app.appbackend.dao;
 
 
+import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.models.User;
+import com.app.appbackend.utils.Utils;
+import com.app.appbackend.validation.Validation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,13 +22,14 @@ public class UserAuthorizationDao {
     @PersistenceContext
     public EntityManager em;
 
+    @Autowired
+    Validation validation;
+
     @Transactional
-    public User register(User user)  {
+    public User register(User user) throws InvalidUserException {
 
         user.setLikes(0);
         user.setRegisterDate(LocalDate.now());
-
-
         em.persist(user);
         return user;
     }

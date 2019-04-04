@@ -2,11 +2,13 @@ package com.app.appbackend.validation;
 
 import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.models.User;
+import com.app.appbackend.utils.Utils;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +36,12 @@ public class Validation {
         if (!user.getPassword().equals(user.getPassword2())) {
             throw new InvalidUserException("Passwords do not match", 400);
         }
+
+        int userAge = Utils.getUserAge(user.getBirth(), LocalDate.now());
+
+        if (userAge >= 150 || userAge <= 8) {
+            throw new InvalidUserException("Not supported age for user", 400);
+        }
     }
 
     public void validateUserLogin(List<User> users) throws InvalidUserException {
@@ -41,9 +49,7 @@ public class Validation {
         if (users.isEmpty()) {
             throw new InvalidUserException("Not such user", 400);
         }
-
     }
-
 
     public void validateImage(String image) throws InvalidUserException {
 
