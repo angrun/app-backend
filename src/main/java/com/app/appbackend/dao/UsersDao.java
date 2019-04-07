@@ -52,7 +52,6 @@ public class UsersDao {
 
     }
 
-
     @Transactional
     @Modifying
     public User update(UserView userview) {
