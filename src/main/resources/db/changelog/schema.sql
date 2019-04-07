@@ -119,3 +119,6 @@ values ('Veiko', 'Saar', 'vesaar@ttu.ee',  'testtest', 'testtest', 'Tallinn', 'E
 
 insert into "matching" (from_user_id, to_user_id, like_value)
 values (13, 1, 1);
+
+insert into "messages" (from_user_id, to_user_id, message, date_sent)
+values (1, 2, 'hei', '2019-01-30')

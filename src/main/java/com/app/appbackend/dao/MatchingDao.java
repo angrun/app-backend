@@ -34,7 +34,7 @@ public class MatchingDao {
 
     public List<UserView> getMatches(String email) {
 
-        TypedQuery<User> query = em.createQuery("select u from User u where u.email = :email", User.class);
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         query.setParameter("email", email);
         User client = query.getResultList().get(0);
 
@@ -42,7 +42,7 @@ public class MatchingDao {
 
         List<UserView> userViews = new LinkedList<>();
 
-        TypedQuery<Integer> query1 = em.createQuery("SELECT m.toUserId from Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
+        TypedQuery<Integer> query1 = em.createQuery("SELECT m.toUserId FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
                 "AND m.toUserId IN (SELECT m.fromUserId from Matching m WHERE m.toUserId = :id AND m.likeValue = 1)", Integer.class);
         query1.setParameter("id", id);
         List<Integer> usersLikes = query1.getResultList();
@@ -50,11 +50,11 @@ public class MatchingDao {
 
         for (Integer usersLike : usersLikes) {
 
-            TypedQuery<User> query2 = em.createQuery("select u from User u WHERE u.id = :id", User.class);
+            TypedQuery<User> query2 = em.createQuery("SELECT u FROOM User u WHERE u.id = :id", User.class);
             query2.setParameter("id", Long.valueOf(usersLike));
             User user = query2.getSingleResult();
 
-            TypedQuery<Image> images = em.createQuery("select i from Image i WHERE i.userId = :id order by i.dateCreated DESC", Image.class);
+            TypedQuery<Image> images = em.createQuery("SELECT i FROM Image i WHERE i.userId = :id ORDER BY i.dateCreated DESC", Image.class);
             images.setParameter("id", Long.valueOf(usersLike));
 
             List<Image> resultList = images.getResultList();

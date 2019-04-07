@@ -36,7 +36,7 @@ public class UsersDao {
 
     public UserView getUserByEmail(String email) {
 
-        TypedQuery<User> query = em.createQuery("select u from User u where u.email = :email", User.class);
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         query.setParameter("email", email);
 
         assert !query.getResultList().isEmpty();
@@ -64,6 +64,8 @@ public class UsersDao {
         user.setCountry(userview.getCountry());
         user.setBio(userview.getBio());
         user.setLikes(userview.getLikes());
+
+        em.persist(user);
 
         return user;
     }

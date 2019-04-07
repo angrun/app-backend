@@ -1,9 +1,6 @@
 package com.app.appbackend.dao;
 
-
-import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.models.User;
-import com.app.appbackend.utils.Utils;
 import com.app.appbackend.validation.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,7 +23,7 @@ public class UserAuthorizationDao {
     Validation validation;
 
     @Transactional
-    public User register(User user) throws InvalidUserException {
+    public User register(User user) {
 
         user.setLikes(0);
         user.setRegisterDate(LocalDate.now());

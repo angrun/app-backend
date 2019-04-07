@@ -21,8 +21,6 @@ public class RegistrationController {
     @Autowired
     Validation validation;
 
-
-
     @ApiOperation("Registers new user in app")
     @PostMapping
     public User registerUser(@Valid @RequestBody User user) throws InvalidUserException {

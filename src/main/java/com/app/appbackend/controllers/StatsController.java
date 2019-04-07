@@ -28,7 +28,6 @@ public class StatsController {
         return statsDao.getGenderEquality();
     }
 
-
     @ApiOperation("Return most likeable users")
     @GetMapping("/likes")
     public List<User> getUsersWithGreatestLikes() {

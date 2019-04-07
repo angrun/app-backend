@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController
@@ -35,7 +36,7 @@ public class UsersController {
 
     @ApiOperation("Updates user information")
     @PutMapping()
-    public User updateUser(@RequestBody UserView userView) {
+    public User updateUser(@RequestBody @Valid UserView userView) {
         return usersDao.update(userView);
     }
 
