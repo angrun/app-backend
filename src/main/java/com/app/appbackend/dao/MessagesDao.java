@@ -1,6 +1,7 @@
 package com.app.appbackend.dao;
 
 import com.app.appbackend.models.Message;
+import com.app.appbackend.models.User;
 import com.app.appbackend.views.MessageView;
 import org.springframework.stereotype.Repository;
 
@@ -31,12 +32,26 @@ public class MessagesDao {
         em.persist(message);
     }
 
-    public List<Message> getMessages(Integer userId, Integer friendId) {
+    public List<Message> getMessages(String email, Integer friendId) {
 
-        TypedQuery<Message> query = em.createQuery("SELECT m FROM Message m where m.fromUserId = :friendId " +
-                "AND m.toUserId = :userId ORDER BY m.dateSent", Message.class);
+        TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+        query1.setParameter("email", email);
+        User client = query1.getResultList().get(0);
+
+        Integer userId = client.getId().intValue();
+
+        System.out.println("--------------------------");
+        System.out.println(userId);
+        System.out.println(friendId);
+        System.out.println("--------------------------");
+
+
+        TypedQuery<Message> query = em.createQuery("SELECT m FROM Message m where m.fromUserId = :userId " +
+                "AND m.toUserId = :friendId ORDER BY m.dateSent", Message.class);
         query.setParameter("friendId", Long.valueOf(friendId));
         query.setParameter("userId", Long.valueOf(userId));
+
+        System.out.println(query.getResultList());
 
         return query.getResultList();
 
