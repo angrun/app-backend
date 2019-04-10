@@ -39,5 +39,14 @@ public class Message {
     @Column(name = "date_sent")
     LocalDateTime dateSent;
 
-
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", fromUserId=" + fromUserId +
+                ", toUserId=" + toUserId +
+                ", message='" + message + '\'' +
+                ", dateSent=" + dateSent +
+                '}';
+    }
 }

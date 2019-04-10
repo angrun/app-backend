@@ -29,12 +29,8 @@ public class Validation {
 
     public void validateUserRegistration(User user) throws InvalidUserException {
 
-        TypedQuery<User> query1 = em.createQuery("select u from User u where u.email = :email", User.class);
-        query1.setParameter("email", user.getEmail());
+        emailExists(user.getEmail());
 
-        if (!query1.getResultList().isEmpty()) {
-            throw new InvalidUserException("Person with such email already exists", BAD_REQUEST);
-        }
         if (!user.getPassword().equals(user.getPassword2())) {
             throw new InvalidUserException("Passwords do not match", BAD_REQUEST);
         }
@@ -46,12 +42,15 @@ public class Validation {
         }
     }
 
-    public void validateUserLogin(List<User> users) throws InvalidUserException {
+    public void emailExists (String email) throws InvalidUserException {
+        TypedQuery<User> query1 = em.createQuery("select u from User u where u.email = :email", User.class);
+        query1.setParameter("email", email);
 
-        if (users.isEmpty()) {
-            throw new InvalidUserException("Not such user", BAD_REQUEST);
+        if (!query1.getResultList().isEmpty()) {
+            throw new InvalidUserException("Person with such email already exists", BAD_REQUEST);
         }
     }
+
 
     public void validateImage(String image) throws InvalidUserException {
 
@@ -62,5 +61,11 @@ public class Validation {
         }
     }
 
+//    public void validateUserLogin(List<User> users) throws InvalidUserException {
+//
+//        if (users.isEmpty()) {
+//            throw new InvalidUserException("Not such user", BAD_REQUEST);
+//        }
+//    }
 
 }

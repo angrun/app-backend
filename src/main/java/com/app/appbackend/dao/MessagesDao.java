@@ -46,8 +46,8 @@ public class MessagesDao {
         System.out.println("--------------------------");
 
 
-        TypedQuery<Message> query = em.createQuery("SELECT m FROM Message m where m.fromUserId = :userId " +
-                "AND m.toUserId = :friendId ORDER BY m.dateSent", Message.class);
+        TypedQuery<Message> query = em.createQuery("SELECT m FROM Message m WHERE (m.fromUserId = :friendId " +
+                "AND m.toUserId = :userId) OR (m.fromUserId = :userId  AND m.toUserId = :friendId) ORDER BY m.dateSent", Message.class);
         query.setParameter("friendId", Long.valueOf(friendId));
         query.setParameter("userId", Long.valueOf(userId));
 

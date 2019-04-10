@@ -121,4 +121,7 @@ insert into "matching" (from_user_id, to_user_id, like_value)
 values (13, 1, 1);
 
 insert into "messages" (from_user_id, to_user_id, message, date_sent)
-values (1, 2, 'hei', '2019-01-30')
+values (1, 2, 'hei', '2019-01-30');
+
+insert into "messages" (from_user_id, to_user_id, message, date_sent)
+values (2, 1, 'hei hei', '2019-01-30')
