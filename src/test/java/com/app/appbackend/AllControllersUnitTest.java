@@ -1,7 +1,7 @@
 package com.app.appbackend;
 
-import com.app.appbackend.controllers.BrowseController;
-import com.app.appbackend.dao.BrowseDao;
+import com.app.appbackend.browse.BrowseController;
+import com.app.appbackend.browse.BrowseDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package com.app.appbackend.config;
 
 import com.app.appbackend.security.JwtAuthenticationFilter;
 import com.app.appbackend.security.JwtAuthorizationFilter;
-import com.app.appbackend.services.UserService;
+import com.app.appbackend.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +29,7 @@ import static com.app.appbackend.utils.Utils.ALLOWED_ADDRESS;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @SuppressWarnings("deprecation")
     @Bean

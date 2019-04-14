@@ -1,7 +1,7 @@
 package com.app.appbackend;
 
-import com.app.appbackend.controllers.RegistrationController;
-import com.app.appbackend.dao.UserAuthorizationDao;
+import com.app.appbackend.registration.RegistrationController;
+import com.app.appbackend.registration.UserAuthorizationDao;
 import com.app.appbackend.validation.Validation;
 import org.junit.Test;
 import org.junit.runner.RunWith;

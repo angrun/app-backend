@@ -1,7 +1,7 @@
 package com.app.appbackend.validation;
 
 import com.app.appbackend.exceptions.InvalidUserException;
-import com.app.appbackend.models.User;
+import com.app.appbackend.user.User;
 import com.app.appbackend.utils.Utils;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
