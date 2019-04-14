@@ -2,15 +2,16 @@ package com.app.appbackend.message;
 
 import com.app.appbackend.user.User;
 import org.springframework.stereotype.Repository;
+import javax.transaction.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
+@Transactional
 public class MessageDao {
 
     @PersistenceContext
@@ -18,13 +19,13 @@ public class MessageDao {
 
 
     @Transactional
-    void sendMessage(MessageDto messageView)
+    void sendMessage(MessageDto messageDto)
     {
         Message message = new Message();
 
-        message.setFromUserId(messageView.getFromUserId());
-        message.setToUserId(messageView.getToUserId());
-        message.setMessage(messageView.getMessage());
+        message.setFromUserId(messageDto.getFromUserId());
+        message.setToUserId(messageDto.getToUserId());
+        message.setMessage(messageDto.getMessage());
         message.setDateSent(LocalDateTime.now());
 
         em.persist(message);

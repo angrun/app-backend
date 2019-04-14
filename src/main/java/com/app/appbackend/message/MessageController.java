@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,7 @@ public class MessageController {
 
     @ApiOperation("Gets the user with the specific id")
     @PostMapping()
+    @Transactional
     public void sendMessage(@RequestBody MessageDto messageView) {
         messageService.sendMessage(messageView);
     }
