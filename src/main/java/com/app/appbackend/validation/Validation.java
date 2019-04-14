@@ -28,7 +28,7 @@ public class Validation {
 
     public void validateUserRegistration(User user) throws InvalidUserException {
 
-        emailExists(user.getEmail());
+        emailExists(user.getEmail(), user.getId());
 
         if (!user.getPassword().equals(user.getPassword2())) {
             throw new InvalidUserException("Passwords do not match", BAD_REQUEST);
@@ -41,9 +41,10 @@ public class Validation {
         }
     }
 
-    public void emailExists (String email) throws InvalidUserException {
-        TypedQuery<User> query1 = em.createQuery("select u from User u where u.email = :email", User.class);
+    public void emailExists (String email, Long id) throws InvalidUserException {
+        TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.id <> :id", User.class);
         query1.setParameter("email", email);
+        query1.setParameter("id", id);
 
         if (!query1.getResultList().isEmpty()) {
             throw new InvalidUserException("Person with such email already exists", BAD_REQUEST);

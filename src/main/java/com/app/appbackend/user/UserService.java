@@ -47,7 +47,7 @@ public class UserService {
     }
 
     User updateUser(UserDto userDto) throws InvalidUserException {
-        validation.emailExists(userDto.getEmail());
+        validation.emailExists(userDto.getEmail(), userDto.getId());
         return usersDao.update(userDto);
     }
 
