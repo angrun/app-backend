@@ -4,10 +4,13 @@ import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.user.User;
 import com.app.appbackend.validation.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
@@ -90,23 +93,15 @@ public class ImageDao {
 
 
 //    @Bean
-//    CommandLineRunner setUp(ImageRepository imageRepository) throws IOException {
+//    CommandLineRunner setUp() throws IOException {
 //
 //        return (args) -> {
 ////            FileSystemUtils.deleteRecursively(new File(UPLOAD_ROOT));
 //
 ////            Files.createDirectory(Paths.get(UPLOAD_ROOT));
-//            FileCopyUtils.copy("Test file", new FileWriter(UPLOAD_ROOT + "/test"));
-//            imageRepository.save(new Image("test"));
-//
-//            FileCopyUtils.copy("Test file2", new FileWriter(UPLOAD_ROOT + "/test2"));
-//            imageRepository.save(new Image("test2"));
-//
-//            FileCopyUtils.copy("Test file3", new FileWriter(UPLOAD_ROOT + "/test3"));
-//            imageRepository.save(new Image("test3"));
+//            new File("/app-backend/hei").mkdirs();
 //
 //        };
-//
 //    }
 
 //    public void deleteImage(String filename) throws IOException {

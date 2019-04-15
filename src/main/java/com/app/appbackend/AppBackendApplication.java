@@ -1,7 +1,12 @@
 package com.app.appbackend;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import java.io.File;
+import java.io.IOException;
 
 @SpringBootApplication
 public class AppBackendApplication {
@@ -25,4 +30,14 @@ public class AppBackendApplication {
 //        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 //        return bean;
 //    }
+
+    @Bean
+    CommandLineRunner setUp() throws IOException {
+
+        return (args) -> {
+
+            new File("../images").mkdirs();
+
+        };
+    }
 }
