@@ -1,5 +1,6 @@
 package com.app.appbackend.browse;
 
+import com.app.appbackend.hobby.Hobby;
 import com.app.appbackend.image.Image;
 import com.app.appbackend.match.Matching;
 import com.app.appbackend.user.User;
@@ -16,6 +17,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -53,19 +55,24 @@ public class BrowseDao {
 
         for (User user : users) {
 
+            //IMAGES
             TypedQuery<Image> images = em.createQuery("SELECT i FROM Image i WHERE i.userId = :userId ORDER BY i.dateCreated DESC", Image.class);
             images.setParameter("userId", user.getId());
-
             List<Image> resultList = images.getResultList();
-
             if (resultList.isEmpty()) {
                 resultList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, user.getId(), LocalDateTime.now()));
             }
 
+            //HOBBIES
+            TypedQuery<Hobby> query = em.createQuery("SELECT h FROM Hobby h WHERE h.userId = :userId", Hobby.class);
+            query.setParameter("userId", (long) user.getId());
+            List<Hobby> hobbies = query.getResultList();
+
+            //AGE
             int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
 
             userDto.add(new UserDto(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getCity(), user.getCountry(), user.getGender(),
-                    age, user.getLikes(), user.getBio(), user.getRegisterDate(), resultList));
+                    age, user.getLikes(), user.getBio(), user.getRegisterDate(), resultList, hobbies));
 
         }
 

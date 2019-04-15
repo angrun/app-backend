@@ -1,4 +1,4 @@
-package com.app.appbackend;
+package com.app.appbackend.hobby;
 
 
 import lombok.AllArgsConstructor;
@@ -25,18 +25,18 @@ public class Hobby {
     @GeneratedValue
     Long id;
 
+    @Column(name = "user_id")
+    Long userId;
+
     @Column
     String name;
 
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "Hobby{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

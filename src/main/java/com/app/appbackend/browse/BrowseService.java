@@ -1,7 +1,7 @@
 package com.app.appbackend.browse;
 
 
-import com.app.appbackend.user.UsersDao;
+import com.app.appbackend.user.UserDao;
 import com.app.appbackend.match.Matching;
 import com.app.appbackend.filter.FilterDto;
 import com.app.appbackend.user.UserDto;
@@ -17,7 +17,7 @@ public class BrowseService {
     BrowseDao browseDao;
 
     @Autowired
-    UsersDao usersDao;
+    UserDao usersDao;
 
     List<UserDto> getAllUsers(FilterDto filterDto) {
         return browseDao.getAllUsers(filterDto);

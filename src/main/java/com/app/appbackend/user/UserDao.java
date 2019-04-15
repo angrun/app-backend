@@ -14,7 +14,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 @Repository
-public class UsersDao {
+public class UserDao {
 
     @PersistenceContext
     public EntityManager em;

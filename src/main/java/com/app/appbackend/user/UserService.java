@@ -2,6 +2,9 @@ package com.app.appbackend.user;
 
 
 import com.app.appbackend.exceptions.InvalidUserException;
+import com.app.appbackend.hobby.Hobby;
+import com.app.appbackend.hobby.HobbyDao;
+import com.app.appbackend.hobby.HobbyDto;
 import com.app.appbackend.image.ImageDao;
 import com.app.appbackend.image.Image;
 import com.app.appbackend.security.JwtDecoder;
@@ -21,10 +24,13 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    UsersDao usersDao;
+    UserDao usersDao;
 
     @Autowired
     ImageDao imageDao;
+
+    @Autowired
+    HobbyDao hobbyDao;
 
     @Autowired
     Validation validation;
@@ -40,9 +46,10 @@ public class UserService {
         int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
 
         List<Image> userImages = imageDao.getUserImages(user.getId());
+        List<Hobby> hobbies = hobbyDao.getHobbies(Math.toIntExact(user.getId()));
 
         return new UserDto(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getCity(), user.getCountry(), user.getGender(),
-                age, user.getLikes(), user.getBio(), user.getRegisterDate(), userImages);
+                age, user.getLikes(), user.getBio(), user.getRegisterDate(), userImages, hobbies);
 
     }
 

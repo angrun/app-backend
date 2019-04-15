@@ -1,11 +1,13 @@
 package com.app.appbackend.match;
 
+import com.app.appbackend.hobby.Hobby;
 import com.app.appbackend.image.Image;
 import com.app.appbackend.user.User;
 import com.app.appbackend.utils.Utils;
 import com.app.appbackend.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -13,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ import static com.app.appbackend.utils.Utils.DEFAULT_PIC;
 import static com.app.appbackend.utils.Utils.SERVER_ADD;
 
 
-@Service
+@Repository
 public class MatchingDao {
 
 
@@ -56,8 +59,13 @@ public class MatchingDao {
 
             TypedQuery<Image> images = em.createQuery("SELECT i FROM Image i WHERE i.userId = :id ORDER BY i.dateCreated DESC", Image.class);
             images.setParameter("id", Long.valueOf(usersLike));
-
             List<Image> resultList = images.getResultList();
+
+            //HOBBIES
+            TypedQuery<Hobby> query3 = em.createQuery("SELECT h FROM Hobby h WHERE h.userId = :userId", Hobby.class);
+            query3.setParameter("userId", (long) usersLike);
+            List<Hobby> hobbies = query3.getResultList();
+
 
             if (resultList.isEmpty()) {
                 resultList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, user.getId(), LocalDateTime.now()));
@@ -66,7 +74,7 @@ public class MatchingDao {
             int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
 
             userDto.add(new UserDto(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getCity(), user.getCountry(), user.getGender(),
-                    age, user.getLikes(), user.getBio(), user.getRegisterDate(), resultList));
+                    age, user.getLikes(), user.getBio(), user.getRegisterDate(), resultList, hobbies));
 
         }
 

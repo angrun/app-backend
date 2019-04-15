@@ -1,5 +1,6 @@
 package com.app.appbackend.user;
 
+import com.app.appbackend.hobby.Hobby;
 import com.app.appbackend.image.Image;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,6 +55,8 @@ public class UserDto {
     LocalDate registerDate;
 
     List<Image> image;
+
+    List<Hobby> hobbies;
 
 }
 

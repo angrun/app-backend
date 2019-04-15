@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
-public class UsersController {
+public class UserController {
 
 
     @Autowired
@@ -25,6 +25,7 @@ public class UsersController {
     @ApiOperation("Gets the user with the specific id")
     @GetMapping(produces = "application/json")
     public UserDto getUser(@RequestHeader(value = "Authorization") String authorization) {
+        System.out.println(userServiceImpl.getUserByEmail(authorization));
         return userServiceImpl.getUserByEmail(authorization);
     }
 
