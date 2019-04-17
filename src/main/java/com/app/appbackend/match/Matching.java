@@ -34,5 +34,4 @@ public class Matching {
     @Column(name = "like_value")
     Integer likeValue;
 
-
 }

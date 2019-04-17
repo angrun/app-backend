@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS "user" (
   birth     DATE,
   likes     INT DEFAULT 0,
   bio       VARCHAR(100) DEFAULT NULL,
+  seen    BOOLEAN DEFAULT FALSE,
   register_date DATE
 );
 

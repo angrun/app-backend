@@ -19,4 +19,13 @@ public class MatchingController {
     public List<UserDto> getAllUsers(@RequestHeader(value = "Authorization") String authorization) {
         return matchingService.getMatches(authorization);
     }
+
+
+    //Return unseen or only count
+    @GetMapping("/unseen")
+    @ApiOperation("Get unseen users mathces")
+    public Integer getUnseenUsers(@RequestHeader(value = "Authorization") String authorization) {
+        return matchingService.getUnseenMatches(authorization);
+    }
+
 }

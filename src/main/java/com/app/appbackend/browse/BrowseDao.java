@@ -71,8 +71,21 @@ public class BrowseDao {
             //AGE
             int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
 
-            userDto.add(new UserDto(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getCity(), user.getCountry(), user.getGender(),
-                    age, user.getLikes(), user.getBio(), user.getRegisterDate(), resultList, hobbies));
+            userDto.add(new UserDto(
+                    user.getId(),
+                    user.getName(),
+                    user.getSurname(),
+                    user.getEmail(),
+                    user.getCity(),
+                    user.getCountry(),
+                    user.getGender(),
+                    age,
+                    user.getLikes(),
+                    user.getBio(),
+                    user.getRegisterDate(),
+                    resultList,
+                    hobbies,
+                    user.getSeen()));
 
         }
 

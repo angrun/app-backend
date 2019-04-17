@@ -40,7 +40,6 @@ public class MatchingDao {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         query.setParameter("email", email);
         User client = query.getResultList().get(0);
-
         Integer id = client.getId().intValue();
 
         List<UserDto> userDto = new LinkedList<>();
@@ -73,8 +72,20 @@ public class MatchingDao {
 
             int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
 
-            userDto.add(new UserDto(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getCity(), user.getCountry(), user.getGender(),
-                    age, user.getLikes(), user.getBio(), user.getRegisterDate(), resultList, hobbies));
+            userDto.add(new UserDto(user.getId(),
+                    user.getName(),
+                    user.getSurname(),
+                    user.getEmail(),
+                    user.getCity(),
+                    user.getCountry(),
+                    user.getGender(),
+                    age,
+                    user.getLikes(),
+                    user.getBio(),
+                    user.getRegisterDate(),
+                    resultList,
+                    hobbies,
+                    user.getSeen()));
 
         }
 
@@ -82,5 +93,19 @@ public class MatchingDao {
 
     }
 
+    //RETURNS UNSEEN MESSAGES
+    Integer getUnseenMatches(String email) {
 
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+        query.setParameter("email", email);
+        User client = query.getResultList().get(0);
+        Integer id = client.getId().intValue();
+
+
+        TypedQuery<Integer> query1 = em.createQuery("SELECT u FROM User u WHERE u.seen = FALSE AND u.id IN (SELECT m.toUserId FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
+                "AND m.toUserId IN (SELECT m.fromUserId from Matching m WHERE m.toUserId = :id AND m.likeValue = 1))", Integer.class);
+        query1.setParameter("id", id);
+        return query1.getResultList().size();
+
+    }
 }

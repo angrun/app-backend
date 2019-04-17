@@ -36,6 +36,8 @@ public class UserController {
     }
 
     @ApiOperation("Updates user information")
+
+
     @PostMapping("images")
     public void createFile(@RequestParam("file") MultipartFile file,
                            @RequestHeader(value = "Authorization") String authorization) throws InvalidUserException {

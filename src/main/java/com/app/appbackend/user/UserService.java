@@ -48,8 +48,21 @@ public class UserService {
         List<Image> userImages = imageDao.getUserImages(user.getId());
         List<Hobby> hobbies = hobbyDao.getHobbies(Math.toIntExact(user.getId()));
 
-        return new UserDto(user.getId(), user.getName(), user.getSurname(), user.getEmail(), user.getCity(), user.getCountry(), user.getGender(),
-                age, user.getLikes(), user.getBio(), user.getRegisterDate(), userImages, hobbies);
+        return new UserDto(
+                user.getId(),
+                user.getName(),
+                user.getSurname(),
+                user.getEmail(),
+                user.getCity(),
+                user.getCountry(),
+                user.getGender(),
+                age,
+                user.getLikes(),
+                user.getBio(),
+                user.getRegisterDate(),
+                userImages,
+                hobbies,
+                user.getSeen());
 
     }
 

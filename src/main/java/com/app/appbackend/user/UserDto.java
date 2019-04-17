@@ -58,6 +58,27 @@ public class UserDto {
 
     List<Hobby> hobbies;
 
+    Boolean seen;
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", likes=" + likes +
+                ", bio='" + bio + '\'' +
+                ", registerDate=" + registerDate +
+                ", image=" + image +
+                ", hobbies=" + hobbies +
+                ", seen=" + seen +
+                '}';
+    }
 }
 
 
