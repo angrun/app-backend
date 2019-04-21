@@ -125,4 +125,23 @@ insert into "messages" (from_user_id, to_user_id, message, date_sent)
 values (1, 2, 'hei', '2019-01-30');
 
 insert into "messages" (from_user_id, to_user_id, message, date_sent)
-values (2, 1, 'hei hei', '2019-01-30')
+values (2, 1, 'hei hei', '2019-01-30');
+
+
+insert into "hobby" (name, user_id)
+values ('duster diving', 1);
+
+insert into "hobby" (name, user_id)
+values ('duster diving', 2);
+
+insert into "hobby" (name, user_id)
+values ('duster diving', 3);
+
+insert into "hobby" (name, user_id)
+values ('photography', 2);
+
+insert into "hobby" (name, user_id)
+values ('photography', 3);
+
+insert into "hobby" (name, user_id)
+values ('coding', 1);

@@ -8,6 +8,25 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
+
+    tasks.register("taskX") {
+        dependsOn("taskY")
+        doLast {
+            println "taskX"
+        }
+    }
+    tasks.register("taskY") {
+        dependsOn("taskZ")
+        doLast {
+            println "taskY"
+        }
+    }
+    tasks.register("taskZ") {
+        doLast {
+            println "taskZ"
+        }
+    }
+
 }
 
 apply plugin: 'java'

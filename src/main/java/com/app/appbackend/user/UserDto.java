@@ -60,6 +60,8 @@ public class UserDto {
 
     Boolean seen;
 
+    String lastMessage;
+
     @Override
     public String toString() {
         return "UserDto{" +

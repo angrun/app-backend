@@ -47,4 +47,13 @@ public class StatsController {
         return statsService.getUsersByCountry();
     }
 
+    @ApiOperation("Return users based on hobby")
+    @GetMapping("/userByHobby")
+    public HashMap<String, Integer> getUsersByHobby() {
+        return statsService.getUsersByHobby();
+    }
+
+
+
+
 }

@@ -38,4 +38,15 @@ public class StatsService {
     }
 
 
+    HashMap<String, Integer> getUsersByHobby() {
+        List<Object[]> usersByHobby = statsDao.getUsersByHobby();
+
+        HashMap<String, Integer> hobbies = new HashMap<>();
+
+        for (Object[] aResultList : usersByHobby) {
+            hobbies.put(aResultList[1].toString(),
+                    Integer.valueOf(aResultList[0].toString()));
+        }
+        return hobbies;
+    }
 }

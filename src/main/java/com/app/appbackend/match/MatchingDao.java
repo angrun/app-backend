@@ -2,6 +2,7 @@ package com.app.appbackend.match;
 
 import com.app.appbackend.hobby.Hobby;
 import com.app.appbackend.image.Image;
+import com.app.appbackend.message.Message;
 import com.app.appbackend.user.User;
 import com.app.appbackend.utils.Utils;
 import com.app.appbackend.user.UserDto;
@@ -52,18 +53,33 @@ public class MatchingDao {
 
         for (Integer usersLike : usersLikes) {
 
+            //USER
             TypedQuery<User> query2 = em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class);
             query2.setParameter("id", Long.valueOf(usersLike));
             User user = query2.getSingleResult();
 
+            //IMAGES
             TypedQuery<Image> images = em.createQuery("SELECT i FROM Image i WHERE i.userId = :id ORDER BY i.dateCreated DESC", Image.class);
             images.setParameter("id", Long.valueOf(usersLike));
             List<Image> resultList = images.getResultList();
 
-            //HOBBIES
-            TypedQuery<Hobby> query3 = em.createQuery("SELECT h FROM Hobby h WHERE h.userId = :userId", Hobby.class);
-            query3.setParameter("userId", (long) usersLike);
-            List<Hobby> hobbies = query3.getResultList();
+            TypedQuery<Message> lastMessagequery = em.createQuery("SELECT m FROM Message m WHERE (m.fromUserId = :friendId " +
+                    "AND m.toUserId = :userId) OR (m.fromUserId = :userId  AND m.toUserId = :friendId) ORDER BY m.dateSent", Message.class);
+            lastMessagequery.setParameter("friendId", Long.valueOf(usersLike));
+            lastMessagequery.setParameter("userId", (long) id);
+
+
+            List<Message> resultList1 = lastMessagequery.getResultList();
+            String lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1).getMessage()  : "Say Hello to new friend!";
+
+
+//            //HOBBIES
+//            TypedQuery<Hobby> query3 = em.createQuery("SELECT h FROM Hobby h WHERE h.userId = :userId", Hobby.class);
+//            query3.setParameter("userId", (long) usersLike);
+//            List<Hobby> hobbies = query3.getResultList();
+
+
+            //LAST MESSAGE
 
 
             if (resultList.isEmpty()) {
@@ -84,8 +100,9 @@ public class MatchingDao {
                     user.getBio(),
                     user.getRegisterDate(),
                     resultList,
-                    hobbies,
-                    user.getSeen()));
+                    new ArrayList<>(),
+                    user.getSeen(),
+                    lastMessage));
 
         }
 

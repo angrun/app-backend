@@ -62,7 +62,8 @@ public class UserService {
                 user.getRegisterDate(),
                 userImages,
                 hobbies,
-                user.getSeen());
+                user.getSeen(),
+                "");
 
     }
 

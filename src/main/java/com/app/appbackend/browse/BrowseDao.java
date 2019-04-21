@@ -85,7 +85,8 @@ public class BrowseDao {
                     user.getRegisterDate(),
                     resultList,
                     hobbies,
-                    user.getSeen()));
+                    user.getSeen(),
+                    ""));
 
         }
 

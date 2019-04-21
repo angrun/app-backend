@@ -59,9 +59,10 @@ public class StatsDao {
         TypedQuery<Object[]> query1 = em.createQuery("SELECT COUNT(u), u.country FROM User u GROUP BY u.country", Object[].class);
         return query1.getResultList();
 
-
-
-
     }
 
+    List<Object[]> getUsersByHobby() {
+        TypedQuery<Object[]> query1 = em.createQuery("SELECT COUNT(h), h.name FROM Hobby h GROUP BY h.name", Object[].class);
+        return query1.getResultList();
+    }
 }
