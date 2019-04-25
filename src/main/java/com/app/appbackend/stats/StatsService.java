@@ -1,6 +1,7 @@
 package com.app.appbackend.stats;
 
 import com.app.appbackend.user.User;
+import com.app.appbackend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,27 +27,14 @@ public class StatsService {
     }
 
     HashMap<String, Integer> getUsersByCountry() {
-        List<Object[]> resultList = statsDao.getUsersByCountry();
-
-        HashMap<String, Integer> country = new HashMap<>();
-
-        for (Object[] aResultList : resultList) {
-            country.put(aResultList[1].toString(),
-                    Integer.valueOf(aResultList[0].toString()));
-        }
-        return country;
+        return Utils.getStringIntegerHashMap(statsDao.getUsersByCountry());
     }
 
-
     HashMap<String, Integer> getUsersByHobby() {
-        List<Object[]> usersByHobby = statsDao.getUsersByHobby();
+        return Utils.getStringIntegerHashMap(statsDao.getUsersByHobby());
+    }
 
-        HashMap<String, Integer> hobbies = new HashMap<>();
-
-        for (Object[] aResultList : usersByHobby) {
-            hobbies.put(aResultList[1].toString(),
-                    Integer.valueOf(aResultList[0].toString()));
-        }
-        return hobbies;
+    HashMap<String, Integer> getUsersByMessages() {
+        return Utils.getStringIntegerHashMap(statsDao.getUsersByMessages());
     }
 }

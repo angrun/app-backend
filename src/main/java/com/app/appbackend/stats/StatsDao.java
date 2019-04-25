@@ -65,4 +65,10 @@ public class StatsDao {
         TypedQuery<Object[]> query1 = em.createQuery("SELECT COUNT(h), h.name FROM Hobby h GROUP BY h.name", Object[].class);
         return query1.getResultList();
     }
+
+    List<Object[]> getUsersByMessages() {
+        TypedQuery<Object[]> query1 = em.createQuery("SELECT COUNT(m) AS arv, u.name FROM Message m, User u " +
+                "WHERE m.fromUserId = u.id GROUP BY m.fromUserId, u.name ORDER BY arv", Object[].class);
+        return query1.setMaxResults(10).getResultList();
+    }
 }

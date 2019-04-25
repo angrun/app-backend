@@ -32,7 +32,6 @@ public class Message {
     @Column(name = "to_user_id")
     Long toUserId;
 
-
     @Column
     String message;
 

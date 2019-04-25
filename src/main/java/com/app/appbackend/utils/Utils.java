@@ -3,6 +3,8 @@ package com.app.appbackend.utils;
 import java.net.InetAddress;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashMap;
+import java.util.List;
 
 public class Utils {
 
@@ -22,10 +24,19 @@ public class Utils {
         }
     }
 
+    public static HashMap<String, Integer> getStringIntegerHashMap(List<Object[]> usersByHobby2) {
+
+        HashMap<String, Integer> resultHashMap = new HashMap<>();
+
+        for (Object[] aResultList : usersByHobby2) {
+            resultHashMap.put(aResultList[1].toString(),
+                    Integer.valueOf(aResultList[0].toString()));
+        }
+        return resultHashMap;
+    }
+
     public static void main(String[] args) {
         System.out.println(getUserAge(LocalDate.of(1997, 10, 23), LocalDate.now()));
     }
-
-
 
 }

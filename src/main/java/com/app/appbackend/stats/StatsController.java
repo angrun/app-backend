@@ -53,6 +53,12 @@ public class StatsController {
         return statsService.getUsersByHobby();
     }
 
+    @ApiOperation("Return most talkative users")
+    @GetMapping("/userByMessages")
+    public HashMap<String, Integer> getUsersByMessages() {
+        return statsService.getUsersByMessages();
+    }
+
 
 
 

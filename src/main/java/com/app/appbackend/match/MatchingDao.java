@@ -73,15 +73,6 @@ public class MatchingDao {
             String lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1).getMessage()  : "Say Hello to new friend!";
 
 
-//            //HOBBIES
-//            TypedQuery<Hobby> query3 = em.createQuery("SELECT h FROM Hobby h WHERE h.userId = :userId", Hobby.class);
-//            query3.setParameter("userId", (long) usersLike);
-//            List<Hobby> hobbies = query3.getResultList();
-
-
-            //LAST MESSAGE
-
-
             if (resultList.isEmpty()) {
                 resultList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, user.getId(), LocalDateTime.now()));
             }
