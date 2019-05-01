@@ -1,11 +1,7 @@
 # DatingApp; backend
 
 
-SWAGGER: 
 
-NB! (For using swagger comment config/WebSecurityConfig)
-
-LINK: http://localhost:8081/swagger-ui.html#
 
 To run
 ---------
@@ -26,11 +22,11 @@ Tools used for better development proccess
 - Java integrated development environment IntelliJ
 - Swagger open-source software framework for managing RESTful Web services
   
-```
+SWAGGER: 
+
 NB! (For using swagger comment config/WebSecurityConfig)
+
 LINK: http://localhost:8081/swagger-ui.html#
-    
-```
 
 
 
