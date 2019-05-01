@@ -61,6 +61,13 @@ public class MessageDao {
         query2.setParameter("userId", userId);
         query2.executeUpdate();
 
+
+
+        Query query3 = em.createQuery("UPDATE Message m SET m.messageSeen = TRUE WHERE m.fromUserId = :friendId and m.toUserId = :userId");
+        query3.setParameter("friendId", friendId);
+        query3.setParameter("userId", userId);
+        query3.executeUpdate();
+
         return query.getResultList();
 
     }
