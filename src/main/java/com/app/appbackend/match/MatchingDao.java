@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -76,9 +75,9 @@ public class MatchingDao {
 
 
             List<Message> resultList1 = lastMessagequery.getResultList();
-            Message lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1) : new Message(1L, 1L, 2L, "Say Hello to new friend!", false, LocalDateTime.now());
+            Message lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1) : new Message(1L, 100L, 200L, "Say Hello to new friend!", false, LocalDateTime.now());
 
-            if (lastMessage.getFromUserId() == (long) id) {
+            if (lastMessage.getFromUserId() == (long) id && !lastMessage.getMessage().equals("Say Hello to new friend")) {
                 lastMessage.setMessageSeen(true);
             }
 
@@ -111,32 +110,4 @@ public class MatchingDao {
 
     }
 
-//    //RETURNS UNSEEN MESSAGES
-//    Integer getUnseenMatches(String email) {
-//
-//        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
-//        query.setParameter("email", email);
-//        User client = query.getResultList().get(0);
-//        Integer id = client.getId().intValue();
-//
-//
-//        TypedQuery<Long> query1 = em.createQuery("SELECT u.id FROM User u WHERE u.seen = FALSE AND u.id IN (SELECT m.toUserId FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
-//                "AND m.toUserId IN (SELECT m.fromUserId from Matching m WHERE m.toUserId = :id AND m.likeValue = 1))", Long.class);
-//        query1.setParameter("id", id);
-//        return query1.getResultList().size();
-//
-//    }
-//
-//
-//    void makeMessagesSeen(List<Integer> ids) {
-//
-//        for (Integer id : ids) {
-//
-//            Query query = em.createQuery("UPDATE User u SET u.seen = TRUE WHERE u.id = :id");
-//            query.setParameter("id", Long.valueOf(id));
-////            query.executeUpdate();
-//        }
-
-
-//    }
 }
