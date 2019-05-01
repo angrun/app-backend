@@ -2,9 +2,10 @@ package com.app.appbackend.message;
 
 import com.app.appbackend.user.User;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
-import javax.transaction.Transactional;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,6 +34,7 @@ public class MessageDao {
         em.persist(message);
     }
 
+    @Transactional
     List<Message> getMessages(String email, Integer friendId) {
 
         TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
@@ -55,9 +57,11 @@ public class MessageDao {
 
 
         Query query2 = em.createQuery("UPDATE Matching m SET m.seen = TRUE WHERE m.fromUserId = :userId and m.toUserId = :friendId");
-        query2.setParameter("friendId", Long.valueOf(friendId));
-        query2.setParameter("userId", (long) userId);
+        query2.setParameter("friendId", friendId);
+        query2.setParameter("userId", userId);
         query2.executeUpdate();
+//        em.joinTransaction();
+//        query2.executeUpdate();
 
 
         return query.getResultList();

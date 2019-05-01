@@ -4,12 +4,13 @@ package com.app.appbackend.message;
 import com.app.appbackend.security.JwtDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class MessageService {
 
     @Autowired

@@ -2,12 +2,15 @@ package com.app.appbackend.message;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
+
+
 import java.util.List;
 
 @RestController
+@Transactional
 @RequestMapping("/messages")
 public class MessageController {
 
