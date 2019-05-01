@@ -78,6 +78,11 @@ public class MatchingDao {
             List<Message> resultList1 = lastMessagequery.getResultList();
             Message lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1) : new Message(1L, 1L, 2L, "Say Hello to new friend!", false, LocalDateTime.now());
 
+            if (lastMessage.getFromUserId() == (long) id) {
+                lastMessage.setMessageSeen(true);
+            }
+
+
             if (resultList.isEmpty()) {
                 resultList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, user.getId(), LocalDateTime.now()));
             }
