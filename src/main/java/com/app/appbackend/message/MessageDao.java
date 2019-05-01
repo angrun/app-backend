@@ -49,7 +49,6 @@ public class MessageDao {
                 "AND m.toUserId = :userId) OR (m.fromUserId = :userId  AND m.toUserId = :friendId) ORDER BY m.dateSent", Message.class);
         query.setParameter("friendId", Long.valueOf(friendId));
         query.setParameter("userId", (long) userId);
-
         System.out.println(query.getResultList());
 
         return query.getResultList();

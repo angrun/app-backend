@@ -18,11 +18,11 @@ public class MatchingController {
 
     @GetMapping("/all")
     @ApiOperation("Gets all users")
-    public List<UserDto> getAllUsers(String authorization) {
+    public List<UserDto> getAllUsers(@RequestHeader(value = "Authorization") String authorization) {
         return matchingService.getMatches(authorization);
     }
 
-
+//
 //    //Return unseen or only count
 //    @GetMapping("/unseen")
 //    @ApiOperation("Get unseen users mathces")
