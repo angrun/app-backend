@@ -110,8 +110,8 @@ public class MatchingDao {
         Integer id = client.getId().intValue();
 
 
-        TypedQuery<Integer> query1 = em.createQuery("SELECT u FROM User u WHERE u.seen = FALSE AND u.id IN (SELECT m.toUserId FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
-                "AND m.toUserId IN (SELECT m.fromUserId from Matching m WHERE m.toUserId = :id AND m.likeValue = 1))", Integer.class);
+        TypedQuery<Long> query1 = em.createQuery("SELECT u.id FROM User u WHERE u.seen = FALSE AND u.id IN (SELECT m.toUserId FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
+                "AND m.toUserId IN (SELECT m.fromUserId from Matching m WHERE m.toUserId = :id AND m.likeValue = 1))", Long.class);
         query1.setParameter("id", id);
         return query1.getResultList().size();
 
