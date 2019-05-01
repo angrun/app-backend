@@ -2,6 +2,7 @@ package com.app.appbackend.user;
 
 import com.app.appbackend.hobby.Hobby;
 import com.app.appbackend.image.Image;
+import com.app.appbackend.message.Message;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -60,7 +61,7 @@ public class UserDto {
 
     Boolean seen;
 
-    String lastMessage;
+    Message lastMessage;
 
     @Override
     public String toString() {

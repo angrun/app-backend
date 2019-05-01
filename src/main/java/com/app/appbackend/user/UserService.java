@@ -63,7 +63,7 @@ public class UserService {
                 userImages,
                 hobbies,
                 false,
-                "");
+                null);
 
     }
 

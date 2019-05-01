@@ -68,6 +68,7 @@ public class MatchingDao {
             images.setParameter("id", Long.valueOf(matching.toUserId));
             List<Image> resultList = images.getResultList();
 
+            //LAST MESSAGE
             TypedQuery<Message> lastMessagequery = em.createQuery("SELECT m FROM Message m WHERE (m.fromUserId = :friendId " +
                     "AND m.toUserId = :userId) OR (m.fromUserId = :userId  AND m.toUserId = :friendId) ORDER BY m.dateSent", Message.class);
             lastMessagequery.setParameter("friendId", Long.valueOf(matching.toUserId));
@@ -75,8 +76,7 @@ public class MatchingDao {
 
 
             List<Message> resultList1 = lastMessagequery.getResultList();
-            String lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1).getMessage() : "Say Hello to new friend!";
-
+            Message lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1) : new Message(1L, 1L, 2L, "Say Hello to new friend!", false, LocalDateTime.now());
 
             if (resultList.isEmpty()) {
                 resultList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, user.getId(), LocalDateTime.now()));

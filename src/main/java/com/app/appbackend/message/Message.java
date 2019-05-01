@@ -35,6 +35,9 @@ public class Message {
     @Column
     String message;
 
+    @Column(name = "message_seen")
+    Boolean messageSeen;
+
     @Column(name = "date_sent")
     LocalDateTime dateSent;
 

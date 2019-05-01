@@ -86,7 +86,7 @@ public class BrowseDao {
                     resultList,
                     hobbies,
                     false,
-                    ""));
+                    null));
 
         }
 

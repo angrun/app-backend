@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS "messages" (
   from_user_id      INTEGER NOT NULL,
   to_user_id INTEGER NOT NULL,
   message VARCHAR(500),
+  message_seen BOOLEAN DEFAULT FALSE,
   date_sent timestamp
 
 );

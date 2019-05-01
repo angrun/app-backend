@@ -60,9 +60,6 @@ public class MessageDao {
         query2.setParameter("friendId", friendId);
         query2.setParameter("userId", userId);
         query2.executeUpdate();
-//        em.joinTransaction();
-//        query2.executeUpdate();
-
 
         return query.getResultList();
 
