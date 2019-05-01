@@ -17,7 +17,6 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,17 +41,31 @@ public class BrowseDao {
         String gender = filterDto.getGender();
         String hobby = filterDto.getHobby();
 
-        TypedQuery<User> usersQuery =
-                em.createQuery("SELECT u FROM User u WHERE u.id NOT IN (SELECT m.toUserId from Matching m  WHERE m.fromUserId = :userId) " +
-                        "AND u.id <> :userId AND u.city = :city AND u.country = :country AND u.gender = :gender " +
-                        "AND u.id IN (SELECT h.userId FROM Hobby h WHERE h.name = :hobby)", User.class);
-        usersQuery.setParameter("userId", userId);
-        usersQuery.setParameter("city", city);
-        usersQuery.setParameter("country", country);
-        usersQuery.setParameter("gender", gender);
-        usersQuery.setParameter("hobby", hobby);
+        TypedQuery<User> usersQuery;
+
+        if (hobby.equals("")) {
+            usersQuery = em.createQuery("SELECT u FROM User u WHERE u.id NOT IN (SELECT m.toUserId from Matching m  WHERE m.fromUserId = :userId) " +
+                    "AND u.id <> :userId AND u.city = :city AND u.country = :country AND u.gender = :gender", User.class);
+            usersQuery.setParameter("userId", userId);
+            usersQuery.setParameter("city", city);
+            usersQuery.setParameter("country", country);
+            usersQuery.setParameter("gender", gender);
+
+
+        } else {
+            usersQuery = em.createQuery("SELECT u FROM User u WHERE u.id NOT IN (SELECT m.toUserId from Matching m  WHERE m.fromUserId = :userId) " +
+                    "AND u.id <> :userId AND u.city = :city AND u.country = :country AND u.gender = :gender " +
+                    "AND u.id IN (SELECT h.userId FROM Hobby h WHERE h.name = :hobby)", User.class);
+            usersQuery.setParameter("userId", userId);
+            usersQuery.setParameter("city", city);
+            usersQuery.setParameter("country", country);
+            usersQuery.setParameter("gender", gender);
+            usersQuery.setParameter("hobby", hobby);
+
+        }
 
         List<User> users = usersQuery.getResultList();
+        System.out.println("RESULT LIST " + users);
 
 
         List<UserDto> userDto = new LinkedList<>();

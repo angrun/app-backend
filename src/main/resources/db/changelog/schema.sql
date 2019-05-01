@@ -134,19 +134,19 @@ values (2, 1, 'hei hei hei hei', '2019-01-30');
 
 
 insert into "hobby" (name, user_id)
-values ('duster diving', 1);
+values ('Duster Diving', 1);
 
 insert into "hobby" (name, user_id)
-values ('duster diving', 2);
+values ('Duster Diving', 2);
 
 insert into "hobby" (name, user_id)
-values ('duster diving', 3);
+values ('Duster Diving', 3);
 
 insert into "hobby" (name, user_id)
-values ('photography', 2);
+values ('Photography', 2);
 
 insert into "hobby" (name, user_id)
-values ('photography', 3);
+values ('Photography', 3);
 
 insert into "hobby" (name, user_id)
-values ('coding', 1);
+values ('Coding', 1);

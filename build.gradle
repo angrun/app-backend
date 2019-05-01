@@ -8,25 +8,6 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
-
-    tasks.register("taskX") {
-        dependsOn("taskY")
-        doLast {
-            println "taskX"
-        }
-    }
-    tasks.register("taskY") {
-        dependsOn("taskZ")
-        doLast {
-            println "taskY"
-        }
-    }
-    tasks.register("taskZ") {
-        doLast {
-            println "taskZ"
-        }
-    }
-
 }
 
 apply plugin: 'java'
@@ -56,13 +37,13 @@ dependencies {
 
     implementation "org.liquibase:liquibase-core"
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    
+
     runtimeOnly 'org.postgresql:postgresql'
-    
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-    
-    compileOnly(group: 'org.projectlombok', name: 'lombok', version: '1.18.4')
+
+    compile(group: 'org.projectlombok', name: 'lombok', version: '1.18.4')
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
