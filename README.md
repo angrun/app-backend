@@ -7,6 +7,23 @@ To run
 ---------
 
 
+To build
+---------
+
+```
+gradle build -x test
+
+```
+
+**NB!** Make sure Annotation Processors are enabled (Under **Preferences** -> **Compiler** -> **Annotation Processors** -> **Enable annotation proccessing**) and Lombok plugin is installed.
+
+Make also sure these dependencies could be found in * *build.gradle* *
+
+```
+compileOnly 'org.projectlombok:lombok'
+annotationProcessor 'org.projectlombok:lombok'
+
+```
 
 
 Built with
