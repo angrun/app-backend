@@ -41,9 +41,7 @@ CREATE TABLE IF NOT EXISTS "matching" (
   from_user_id      INTEGER NOT NULL,
   to_user_id INTEGER NOT NULL,
   like_value INTEGER NOT NULL,
-  from_user_id_seen BOOLEAN DEFAULT FALSE,
-  to_user_id_seen BOOLEAN DEFAULT FALSE
-
+  seen BOOLEAN DEFAULT FALSE
 );
 
 

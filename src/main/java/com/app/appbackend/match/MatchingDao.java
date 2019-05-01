@@ -97,7 +97,7 @@ public class MatchingDao {
                     user.getRegisterDate(),
                     resultList,
                     new ArrayList<>(),
-                    matching.toUserIdSeen,
+                    matching.seen,
                     lastMessage));
 
         }
