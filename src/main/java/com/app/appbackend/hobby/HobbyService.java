@@ -29,10 +29,6 @@ public class HobbyService {
 
     }
 
-//    List<Hobby> getHobbies(String email) {
-//        return hobbyDao.getHobbies(decoder.getEmailFromToken(email));
-//    }
-
     List<Hobby> getHobbies(Integer userId) {
         return hobbyDao.getHobbies(userId);
     }

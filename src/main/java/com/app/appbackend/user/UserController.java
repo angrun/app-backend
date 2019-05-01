@@ -51,17 +51,4 @@ public class UserController {
         return userService.createFile();
     }
 
-
-//    @ApiOperation("Deletes user with specific id")
-//    @DeleteMapping("/{userId}")
-//    public void deleteUserById(@PathVariable("userId") Long userId) {
-//        usersDao.delete(userId);
-//    }
-//
-//    @ApiOperation("Deletes all users")
-//    @DeleteMapping
-//    public void delete() {
-//        usersDao.delete();
-//    }
-
 }

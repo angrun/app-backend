@@ -20,12 +20,4 @@ public class MatchingService {
         return matchingDao.getMatches(decoder.getEmailFromToken(authorization));
     }
 
-//    public Integer getUnseenMatches(String authorization) {
-//        return matchingDao.getUnseenMatches(decoder.getEmailFromToken(authorization));
-//    }
-
-
-//    void makeMessagesSeen(List<Integer> ids) {
-//        matchingDao.makeMessagesSeen(ids);
-//    }
 }

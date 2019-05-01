@@ -19,4 +19,6 @@ public class FilterDto {
 
     String gender;
 
+    String hobby;
+
 }

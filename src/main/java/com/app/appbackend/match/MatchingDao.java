@@ -28,7 +28,6 @@ import static com.app.appbackend.utils.Utils.SERVER_ADD;
 @Repository
 public class MatchingDao {
 
-
     @PersistenceContext
     public EntityManager em;
 
@@ -43,10 +42,8 @@ public class MatchingDao {
 
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         query.setParameter("email", email);
-        System.out.println(query.getResultList());
         User client = query.getResultList().get(0);
         Integer id = client.getId().intValue();
-
         List<UserDto> userDto = new LinkedList<>();
 
         TypedQuery<Matching> query1 = em.createQuery("SELECT m FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
@@ -107,7 +104,6 @@ public class MatchingDao {
         }
 
         return userDto;
-
     }
 
 }

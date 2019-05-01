@@ -22,19 +22,4 @@ public class MatchingController {
         return matchingService.getMatches(authorization);
     }
 
-//
-//    //Return unseen or only count
-//    @GetMapping("/unseen")
-//    @ApiOperation("Get unseen users mathces")
-//    public Integer getUnseenUsers(String authorization) {
-//        return matchingService.getUnseenMatches(authorization);
-//    }
-//
-//
-//    @PostMapping("/doSeen")
-//    @ApiOperation("Make users seen")
-//    public void makeUsersSeen(@RequestBody List<Integer> ids) {
-//        matchingService.makeMessagesSeen(ids);
-//    }
-
 }

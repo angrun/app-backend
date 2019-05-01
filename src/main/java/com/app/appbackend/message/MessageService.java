@@ -27,5 +27,4 @@ public class MessageService {
         return messageDao.getMessages(decoder.getEmailFromToken(authorization), friendId);
     }
 
-
 }

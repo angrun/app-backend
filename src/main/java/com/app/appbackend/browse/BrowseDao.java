@@ -40,16 +40,20 @@ public class BrowseDao {
         String city = filterDto.getCity();
         String country = filterDto.getCountry();
         String gender = filterDto.getGender();
+        String hobby = filterDto.getHobby();
 
         TypedQuery<User> usersQuery =
                 em.createQuery("SELECT u FROM User u WHERE u.id NOT IN (SELECT m.toUserId from Matching m  WHERE m.fromUserId = :userId) " +
-                        "AND u.id <> :userId AND u.city = :city AND u.country = :country AND u.gender = :gender", User.class);
+                        "AND u.id <> :userId AND u.city = :city AND u.country = :country AND u.gender = :gender " +
+                        "AND u.id IN (SELECT h.userId FROM Hobby h WHERE h.name = :hobby)", User.class);
         usersQuery.setParameter("userId", userId);
         usersQuery.setParameter("city", city);
         usersQuery.setParameter("country", country);
         usersQuery.setParameter("gender", gender);
+        usersQuery.setParameter("hobby", hobby);
 
         List<User> users = usersQuery.getResultList();
+
 
         List<UserDto> userDto = new LinkedList<>();
 

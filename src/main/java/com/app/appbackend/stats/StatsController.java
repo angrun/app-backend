@@ -59,7 +59,4 @@ public class StatsController {
         return statsService.getUsersByMessages();
     }
 
-
-
-
 }

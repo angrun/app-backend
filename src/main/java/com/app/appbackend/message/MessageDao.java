@@ -3,7 +3,6 @@ package com.app.appbackend.message;
 import com.app.appbackend.user.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.Query;
 
 
@@ -40,13 +39,7 @@ public class MessageDao {
         TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         query1.setParameter("email", email);
         User client = query1.getResultList().get(0);
-
         int userId = client.getId().intValue();
-
-        System.out.println("--------------------------");
-        System.out.println(userId);
-        System.out.println(friendId);
-        System.out.println("--------------------------");
 
 
         TypedQuery<Message> query = em.createQuery("SELECT m FROM Message m WHERE (m.fromUserId = :friendId " +
@@ -60,8 +53,6 @@ public class MessageDao {
         query2.setParameter("friendId", friendId);
         query2.setParameter("userId", userId);
         query2.executeUpdate();
-
-
 
         Query query3 = em.createQuery("UPDATE Message m SET m.messageSeen = TRUE WHERE m.fromUserId = :friendId and m.toUserId = :userId");
         query3.setParameter("friendId", (long) friendId);

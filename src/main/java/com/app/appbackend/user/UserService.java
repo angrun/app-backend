@@ -4,7 +4,6 @@ package com.app.appbackend.user;
 import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.hobby.Hobby;
 import com.app.appbackend.hobby.HobbyDao;
-import com.app.appbackend.hobby.HobbyDto;
 import com.app.appbackend.image.ImageDao;
 import com.app.appbackend.image.Image;
 import com.app.appbackend.security.JwtDecoder;
