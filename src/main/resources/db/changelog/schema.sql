@@ -17,7 +17,6 @@ CREATE TABLE IF NOT EXISTS "user" (
   birth     DATE,
   likes     INT DEFAULT 0,
   bio       VARCHAR(100) DEFAULT NULL,
-  seen    BOOLEAN DEFAULT FALSE,
   register_date DATE
 );
 
@@ -41,7 +40,9 @@ CREATE TABLE IF NOT EXISTS "matching" (
   id        SERIAL PRIMARY KEY,
   from_user_id      INTEGER NOT NULL,
   to_user_id INTEGER NOT NULL,
-  like_value INTEGER NOT NULL
+  like_value INTEGER NOT NULL,
+  from_user_id_seen BOOLEAN DEFAULT FALSE,
+  to_user_id_seen BOOLEAN DEFAULT FALSE
 
 );
 
@@ -54,8 +55,6 @@ CREATE TABLE IF NOT EXISTS "messages" (
   date_sent timestamp
 
 );
-
-
 
 --rollback drop table user;
 
@@ -120,6 +119,10 @@ values ('Veiko', 'Saar', 'vesaar@ttu.ee',  'testtest', 'testtest', 'Tallinn', 'E
 
 insert into "matching" (from_user_id, to_user_id, like_value)
 values (13, 1, 1);
+
+
+insert into "matching" (from_user_id, to_user_id, like_value)
+values (1, 13, 1);
 
 insert into "messages" (from_user_id, to_user_id, message, date_sent)
 values (1, 2, 'hei', '2019-01-30');

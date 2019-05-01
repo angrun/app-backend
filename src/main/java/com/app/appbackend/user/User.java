@@ -80,8 +80,6 @@ public class User {
     @Column(name = "register_date")
     LocalDate registerDate;
 
-    @Column
-    Boolean seen;
 
     Collection<? extends GrantedAuthority> getAuthorities() {
         return new HashSet<GrantedAuthority>();

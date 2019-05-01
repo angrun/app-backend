@@ -1,6 +1,5 @@
 package com.app.appbackend.match;
 
-import com.app.appbackend.hobby.Hobby;
 import com.app.appbackend.image.Image;
 import com.app.appbackend.message.Message;
 import com.app.appbackend.user.User;
@@ -9,11 +8,14 @@ import com.app.appbackend.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ import java.util.List;
 import static com.app.appbackend.utils.Utils.DEFAULT_PIC;
 import static com.app.appbackend.utils.Utils.SERVER_ADD;
 
-
+@Transactional
 @Repository
 public class MatchingDao {
 
@@ -38,39 +40,42 @@ public class MatchingDao {
 
     List<UserDto> getMatches(String email) {
 
+        System.out.println(email);
+
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         query.setParameter("email", email);
+        System.out.println(query.getResultList());
         User client = query.getResultList().get(0);
         Integer id = client.getId().intValue();
 
         List<UserDto> userDto = new LinkedList<>();
 
-        TypedQuery<Integer> query1 = em.createQuery("SELECT m.toUserId FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
-                "AND m.toUserId IN (SELECT m.fromUserId from Matching m WHERE m.toUserId = :id AND m.likeValue = 1)", Integer.class);
+        TypedQuery<Matching> query1 = em.createQuery("SELECT m FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
+                "AND m.toUserId IN (SELECT m.fromUserId from Matching m WHERE m.toUserId = :id AND m.likeValue = 1)", Matching.class);
         query1.setParameter("id", id);
-        List<Integer> usersLikes = query1.getResultList();
+        List<Matching> usersLikes = query1.getResultList();
 
 
-        for (Integer usersLike : usersLikes) {
+        for (Matching matching : usersLikes) {
 
             //USER
             TypedQuery<User> query2 = em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class);
-            query2.setParameter("id", Long.valueOf(usersLike));
+            query2.setParameter("id", Long.valueOf(matching.toUserId));
             User user = query2.getSingleResult();
 
             //IMAGES
             TypedQuery<Image> images = em.createQuery("SELECT i FROM Image i WHERE i.userId = :id ORDER BY i.dateCreated DESC", Image.class);
-            images.setParameter("id", Long.valueOf(usersLike));
+            images.setParameter("id", Long.valueOf(matching.toUserId));
             List<Image> resultList = images.getResultList();
 
             TypedQuery<Message> lastMessagequery = em.createQuery("SELECT m FROM Message m WHERE (m.fromUserId = :friendId " +
                     "AND m.toUserId = :userId) OR (m.fromUserId = :userId  AND m.toUserId = :friendId) ORDER BY m.dateSent", Message.class);
-            lastMessagequery.setParameter("friendId", Long.valueOf(usersLike));
+            lastMessagequery.setParameter("friendId", Long.valueOf(matching.toUserId));
             lastMessagequery.setParameter("userId", (long) id);
 
 
             List<Message> resultList1 = lastMessagequery.getResultList();
-            String lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1).getMessage()  : "Say Hello to new friend!";
+            String lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1).getMessage() : "Say Hello to new friend!";
 
 
             if (resultList.isEmpty()) {
@@ -92,7 +97,7 @@ public class MatchingDao {
                     user.getRegisterDate(),
                     resultList,
                     new ArrayList<>(),
-                    user.getSeen(),
+                    matching.toUserIdSeen,
                     lastMessage));
 
         }
@@ -101,19 +106,32 @@ public class MatchingDao {
 
     }
 
-    //RETURNS UNSEEN MESSAGES
-    Integer getUnseenMatches(String email) {
+//    //RETURNS UNSEEN MESSAGES
+//    Integer getUnseenMatches(String email) {
+//
+//        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+//        query.setParameter("email", email);
+//        User client = query.getResultList().get(0);
+//        Integer id = client.getId().intValue();
+//
+//
+//        TypedQuery<Long> query1 = em.createQuery("SELECT u.id FROM User u WHERE u.seen = FALSE AND u.id IN (SELECT m.toUserId FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
+//                "AND m.toUserId IN (SELECT m.fromUserId from Matching m WHERE m.toUserId = :id AND m.likeValue = 1))", Long.class);
+//        query1.setParameter("id", id);
+//        return query1.getResultList().size();
+//
+//    }
+//
+//
+//    void makeMessagesSeen(List<Integer> ids) {
+//
+//        for (Integer id : ids) {
+//
+//            Query query = em.createQuery("UPDATE User u SET u.seen = TRUE WHERE u.id = :id");
+//            query.setParameter("id", Long.valueOf(id));
+////            query.executeUpdate();
+//        }
 
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
-        query.setParameter("email", email);
-        User client = query.getResultList().get(0);
-        Integer id = client.getId().intValue();
 
-
-        TypedQuery<Long> query1 = em.createQuery("SELECT u.id FROM User u WHERE u.seen = FALSE AND u.id IN (SELECT m.toUserId FROM Matching m WHERE m.fromUserId = :id AND m.likeValue = 1" +
-                "AND m.toUserId IN (SELECT m.fromUserId from Matching m WHERE m.toUserId = :id AND m.likeValue = 1))", Long.class);
-        query1.setParameter("id", id);
-        return query1.getResultList().size();
-
-    }
+//    }
 }

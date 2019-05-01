@@ -34,4 +34,10 @@ public class Matching {
     @Column(name = "like_value")
     Integer likeValue;
 
+    @Column(name = "from_user_id_seen")
+    Boolean fromUserIdSeen;
+
+    @Column(name = "to_user_id_seen")
+    Boolean toUserIdSeen;
+
 }
