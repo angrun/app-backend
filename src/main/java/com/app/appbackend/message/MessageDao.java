@@ -54,12 +54,22 @@ public class MessageDao {
         query2.setParameter("userId", userId);
         query2.executeUpdate();
 
+        return query.getResultList();
+
+    }
+
+    @Transactional
+    void updateMessagesToBeSeen(String email, Integer friendId) {
+
+        TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+        query1.setParameter("email", email);
+        User client = query1.getResultList().get(0);
+        int userId = client.getId().intValue();
+
+
         Query query3 = em.createQuery("UPDATE Message m SET m.messageSeen = TRUE WHERE m.fromUserId = :friendId and m.toUserId = :userId");
         query3.setParameter("friendId", (long) friendId);
         query3.setParameter("userId", (long) userId);
         query3.executeUpdate();
-
-        return query.getResultList();
-
     }
 }

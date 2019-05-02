@@ -27,4 +27,8 @@ public class MessageService {
         return messageDao.getMessages(decoder.getEmailFromToken(authorization), friendId);
     }
 
+    void updateMessagesToBeSeen(String authorization, Integer friendId) {
+        messageDao.updateMessagesToBeSeen(decoder.getEmailFromToken(authorization), friendId);
+    }
+
 }
