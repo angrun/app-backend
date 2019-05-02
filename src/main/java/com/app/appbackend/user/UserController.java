@@ -2,12 +2,15 @@ package com.app.appbackend.user;
 
 import com.app.appbackend.exceptions.InvalidUserException;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 @RestController
@@ -49,6 +52,13 @@ public class UserController {
     @GetMapping("images")
     public Resource createFile() {
         return userService.createFile();
+    }
+
+    @GetMapping(value = "/image")
+    public @ResponseBody byte[] getImage() throws IOException {
+        InputStream in = getClass()
+                .getResourceAsStream("images/proov.jpg");
+        return IOUtils.toByteArray(in);
     }
 
 }

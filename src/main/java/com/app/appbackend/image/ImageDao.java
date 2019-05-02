@@ -58,7 +58,7 @@ public class ImageDao {
         String filename = file.getOriginalFilename();
         validation.validateImage(filename);
 
-        boolean check = new File("../images", filename).exists();
+        boolean check = new File(UPLOAD_ROOT, filename).exists();
 
         if (!check) {
 
@@ -68,7 +68,7 @@ public class ImageDao {
         }
 
         Image image = new Image();
-        image.setName("../images/" + filename);
+        image.setName(UPLOAD_ROOT + filename);
         image.setUserId(userId);
         image.setDateCreated(LocalDateTime.now());
         em.persist(image);
