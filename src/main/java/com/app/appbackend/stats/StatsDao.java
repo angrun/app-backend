@@ -53,7 +53,6 @@ public class StatsDao {
 
     }
 
-
     List<Object[]> getUsersByCountry() {
 
         TypedQuery<Object[]> query1 = em.createQuery("SELECT COUNT(u), u.country FROM User u GROUP BY u.country", Object[].class);

@@ -63,7 +63,7 @@ public class ImageDao {
         if (!check) {
 
             if (!file.isEmpty()) {
-                Files.copy(file.getInputStream(), Paths.get("../images", file.getOriginalFilename()));
+                Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
             }
         }
 
@@ -87,29 +87,5 @@ public class ImageDao {
 
         return resultList;
     }
-
-
-//    @Bean
-//    CommandLineRunner setUp() throws IOException {
-//
-//        return (args) -> {
-////            FileSystemUtils.deleteRecursively(new File(UPLOAD_ROOT));
-//
-////            Files.createDirectory(Paths.get(UPLOAD_ROOT));
-//            new File("/app-backend/hei").mkdirs();
-//
-//        };
-//    }
-
-//    public void deleteImage(String filename) throws IOException {
-//
-//        final Image byName = imageRepository.findByName(filename);
-//        imageRepository.delete(byName);
-//        Files.deleteIfExists(Paths.get(UPLOAD_ROOT, filename));
-//    }
-//
-//    public Page<Image> findPage(Pageable pageable) {
-//        return imageRepository.findAll(pageable);
-//    }
 
 }
