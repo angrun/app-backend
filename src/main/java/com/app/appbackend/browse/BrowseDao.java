@@ -43,7 +43,9 @@ public class BrowseDao {
 
         TypedQuery<User> usersQuery;
 
-        if (hobby.equals("")) {
+        System.out.println(hobby);
+
+        if (hobby == null || hobby.equals("")) {
             usersQuery = em.createQuery("SELECT u FROM User u WHERE u.id NOT IN (SELECT m.toUserId from Matching m  WHERE m.fromUserId = :userId) " +
                     "AND u.id <> :userId AND u.city = :city AND u.country = :country AND u.gender = :gender", User.class);
             usersQuery.setParameter("userId", userId);

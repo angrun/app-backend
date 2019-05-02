@@ -58,17 +58,17 @@ public class ImageDao {
         String filename = file.getOriginalFilename();
         validation.validateImage(filename);
 
-        boolean check = new File(UPLOAD_ROOT, filename).exists();
+        boolean check = new File("../images", filename).exists();
 
         if (!check) {
 
             if (!file.isEmpty()) {
-                Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
+                Files.copy(file.getInputStream(), Paths.get("../images", file.getOriginalFilename()));
             }
         }
 
         Image image = new Image();
-        image.setName(SERVER_ADD + ":" + environment.getProperty("server.port") + "/" + UPLOAD_ROOT + file.getOriginalFilename());
+        image.setName("../images/" + filename);
         image.setUserId(userId);
         image.setDateCreated(LocalDateTime.now());
         em.persist(image);

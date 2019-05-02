@@ -35,9 +35,7 @@ public class AppBackendApplication {
     CommandLineRunner setUp() throws IOException {
 
         return (args) -> {
-
             new File("../images").mkdirs();
-
         };
     }
 }
