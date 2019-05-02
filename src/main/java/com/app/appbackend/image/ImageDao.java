@@ -3,6 +3,7 @@ package com.app.appbackend.image;
 import com.app.appbackend.exceptions.InvalidUserException;
 import com.app.appbackend.user.User;
 import com.app.appbackend.validation.Validation;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 
@@ -68,24 +71,31 @@ public class ImageDao {
         }
 
         Image image = new Image();
-        image.setName(UPLOAD_ROOT + filename);
+        image.setName(UPLOAD_ROOT + "/" + filename);
         image.setUserId(userId);
         image.setDateCreated(LocalDateTime.now());
         em.persist(image);
 
     }
 
-    public List<Image> getUserImages(Long userId) {
+    public List<Image> getUserImages(Long userId) throws IOException {
 
         TypedQuery<Image> query1 = em.createQuery("SELECT i FROM Image i WHERE i.userId = :userId ORDER BY i.dateCreated DESC ", Image.class);
         query1.setParameter("userId", userId);
         List<Image> resultList = query1.getResultList();
+        List<Image> rsList = new ArrayList<>();
 
         if (resultList.isEmpty()) {
-            resultList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, userId, LocalDateTime.now()));
+            rsList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, userId, LocalDateTime.now()));
         }
 
-        return resultList;
+        for (Image aResultList : resultList) {
+            byte[] fileContent = FileUtils.readFileToByteArray(new File(aResultList.name));
+            String encodedString = Base64.getEncoder().encodeToString(fileContent);
+            rsList.add(new Image(encodedString, userId, aResultList.dateCreated));
+        }
+
+        return rsList;
     }
 
 }

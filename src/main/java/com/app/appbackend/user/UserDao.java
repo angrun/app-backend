@@ -38,8 +38,6 @@ public class UserDao {
         User user = query.getResultList().isEmpty() ? null : query.getSingleResult();
         assert user != null;
         return user;
-
-
     }
 
     @Transactional
