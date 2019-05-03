@@ -28,8 +28,7 @@ public class UserController {
 
     @ApiOperation("Gets the user with the specific id")
     @GetMapping(produces = "application/json")
-    public UserDto getUser(@RequestHeader(value = "Authorization") String authorization) {
-        System.out.println(userServiceImpl.getUserByEmail(authorization));
+    public UserDto getUser(@RequestHeader(value = "Authorization") String authorization) throws IOException {
         return userServiceImpl.getUserByEmail(authorization);
     }
 
@@ -55,15 +54,15 @@ public class UserController {
         return userService.createFile();
     }
 
-    @GetMapping(
-            value = "/imagesTest"
-//            produces = MediaType.IMAGE_JPEG_VALUE
-    )
-    public  String getImage() throws IOException {
-
-        byte[] fileContent = FileUtils.readFileToByteArray(new File("../images/download.jpeg"));
-        String encodedString = Base64.getEncoder().encodeToString(fileContent);
-        System.out.println(encodedString);
-        return encodedString;
-    }
+//    @GetMapping(
+//            value = "/imagesTest"
+////            produces = MediaType.IMAGE_JPEG_VALUE
+//    )
+//    public  String getImage() throws IOException {
+//
+////        byte[] fileContent = FileUtils.readFileToByteArray(new File("../images/download.jpeg"));
+////        String encodedString = Base64.getEncoder().encodeToString(fileContent);
+////
+//        return null;
+//    }
 }

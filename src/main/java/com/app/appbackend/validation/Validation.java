@@ -65,15 +65,11 @@ public class Validation {
 
     public void validateHobby(HobbyDto hobbyDto) throws InvalidUserException {
 
-        System.out.println(hobbyDto.getUserId());
-        System.out.println(hobbyDto.getHobby());
 
         TypedQuery<Hobby> query1 = em.createQuery("SELECT h FROM Hobby h WHERE h.userId = :userId AND h.name = :name", Hobby.class);
         query1.setParameter("userId", hobbyDto.getUserId());
         query1.setParameter("name", hobbyDto.getHobby());
 
-        System.out.println("dddd");
-        System.out.println(query1.getResultList());
 
         if (!query1.getResultList().isEmpty()) {
             throw new InvalidUserException("You have already declared such hobby", BAD_REQUEST);

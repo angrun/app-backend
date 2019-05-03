@@ -2,6 +2,7 @@ package com.app.appbackend.browse;
 
 import com.app.appbackend.hobby.Hobby;
 import com.app.appbackend.image.Image;
+import com.app.appbackend.image.ImageDao;
 import com.app.appbackend.match.Matching;
 import com.app.appbackend.user.User;
 import com.app.appbackend.utils.Utils;
@@ -15,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -32,8 +34,11 @@ public class BrowseDao {
     @Autowired
     Environment environment;
 
+    @Autowired
+    ImageDao imageDao;
 
-    List<UserDto> getAllUsers(FilterDto filterDto) {
+
+    List<UserDto> getAllUsers(FilterDto filterDto) throws IOException {
 
         Integer userId = filterDto.getId();
         String city = filterDto.getCity();
@@ -42,8 +47,6 @@ public class BrowseDao {
         String hobby = filterDto.getHobby();
 
         TypedQuery<User> usersQuery;
-
-        System.out.println(hobby);
 
         if (hobby == null || hobby.equals("")) {
             usersQuery = em.createQuery("SELECT u FROM User u WHERE u.id NOT IN (SELECT m.toUserId from Matching m  WHERE m.fromUserId = :userId) " +
@@ -67,20 +70,13 @@ public class BrowseDao {
         }
 
         List<User> users = usersQuery.getResultList();
-        System.out.println("RESULT LIST " + users);
-
 
         List<UserDto> userDto = new LinkedList<>();
 
         for (User user : users) {
 
             //IMAGES
-            TypedQuery<Image> images = em.createQuery("SELECT i FROM Image i WHERE i.userId = :userId ORDER BY i.dateCreated DESC", Image.class);
-            images.setParameter("userId", user.getId());
-            List<Image> resultList = images.getResultList();
-            if (resultList.isEmpty()) {
-                resultList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, user.getId(), LocalDateTime.now()));
-            }
+            List<Image> userImages = imageDao.getUserImages(user.getId());
 
             //HOBBIES
             TypedQuery<Hobby> query = em.createQuery("SELECT h FROM Hobby h WHERE h.userId = :userId", Hobby.class);
@@ -102,7 +98,7 @@ public class BrowseDao {
                     user.getLikes(),
                     user.getBio(),
                     user.getRegisterDate(),
-                    resultList,
+                    userImages,
                     hobbies,
                     false,
                     null));

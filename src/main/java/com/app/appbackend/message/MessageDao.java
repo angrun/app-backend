@@ -46,13 +46,12 @@ public class MessageDao {
                 "AND m.toUserId = :userId) OR (m.fromUserId = :userId  AND m.toUserId = :friendId) ORDER BY m.dateSent", Message.class);
         query.setParameter("friendId", Long.valueOf(friendId));
         query.setParameter("userId", (long) userId);
-        System.out.println(query.getResultList());
-
 
         Query query2 = em.createQuery("UPDATE Matching m SET m.seen = TRUE WHERE m.fromUserId = :userId and m.toUserId = :friendId");
         query2.setParameter("friendId", friendId);
         query2.setParameter("userId", userId);
         query2.executeUpdate();
+
 
         return query.getResultList();
 

@@ -40,7 +40,7 @@ public class UserService {
         return usersDao.getUserByEmail(decoder.getEmailFromToken(authorization)).getId();
     }
 
-    UserDto getUserByEmail(String authorization) {
+    UserDto getUserByEmail(String authorization) throws IOException {
         User user = usersDao.getUserByEmail(decoder.getEmailFromToken(authorization));
         int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
 

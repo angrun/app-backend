@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class BrowseController {
 
     @GetMapping("/all")
     @ApiOperation("Gets all users")
-    public List<UserDto> getAllUsers(FilterDto filterDto) {
+    public List<UserDto> getAllUsers(FilterDto filterDto) throws IOException {
         return browseService.getAllUsers(filterDto);
     }
 

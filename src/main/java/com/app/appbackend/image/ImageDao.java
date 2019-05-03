@@ -61,12 +61,12 @@ public class ImageDao {
         String filename = file.getOriginalFilename();
         validation.validateImage(filename);
 
-        boolean check = new File(UPLOAD_ROOT, filename).exists();
+        boolean check = new File("images/", filename).exists();
 
         if (!check) {
 
             if (!file.isEmpty()) {
-                Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
+                Files.copy(file.getInputStream(), Paths.get("images/", file.getOriginalFilename()));
             }
         }
 
@@ -86,7 +86,7 @@ public class ImageDao {
         List<Image> rsList = new ArrayList<>();
 
         if (resultList.isEmpty()) {
-            rsList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, userId, LocalDateTime.now()));
+            resultList.add(new Image("images" + DEFAULT_PIC, userId, LocalDateTime.now()));
         }
 
         for (Image aResultList : resultList) {

@@ -1,6 +1,7 @@
 package com.app.appbackend.match;
 
 import com.app.appbackend.image.Image;
+import com.app.appbackend.image.ImageDao;
 import com.app.appbackend.message.Message;
 import com.app.appbackend.user.User;
 import com.app.appbackend.utils.Utils;
@@ -15,6 +16,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,14 +33,15 @@ public class MatchingDao {
     @PersistenceContext
     public EntityManager em;
 
+    @Autowired
+    ImageDao imageDao;
+
 
     @Autowired
     Environment environment;
 
 
-    List<UserDto> getMatches(String email) {
-
-        System.out.println(email);
+    List<UserDto> getMatches(String email) throws IOException {
 
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         query.setParameter("email", email);
@@ -60,9 +63,7 @@ public class MatchingDao {
             User user = query2.getSingleResult();
 
             //IMAGES
-            TypedQuery<Image> images = em.createQuery("SELECT i FROM Image i WHERE i.userId = :id ORDER BY i.dateCreated DESC", Image.class);
-            images.setParameter("id", Long.valueOf(matching.toUserId));
-            List<Image> resultList = images.getResultList();
+            List<Image> userImages = imageDao.getUserImages(user.getId());
 
             //LAST MESSAGE
             TypedQuery<Message> lastMessagequery = em.createQuery("SELECT m FROM Message m WHERE (m.fromUserId = :friendId " +
@@ -79,10 +80,6 @@ public class MatchingDao {
             }
 
 
-            if (resultList.isEmpty()) {
-                resultList.add(new Image(SERVER_ADD + ":" + environment.getProperty("server.port") + DEFAULT_PIC, user.getId(), LocalDateTime.now()));
-            }
-
             int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
 
             userDto.add(new UserDto(user.getId(),
@@ -96,7 +93,7 @@ public class MatchingDao {
                     user.getLikes(),
                     user.getBio(),
                     user.getRegisterDate(),
-                    resultList,
+                    userImages,
                     new ArrayList<>(),
                     matching.seen,
                     lastMessage));

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class MatchingService {
 
     private JwtDecoder decoder = new JwtDecoder();
 
-    List<UserDto> getMatches(String authorization) {
+    List<UserDto> getMatches(String authorization) throws IOException {
         return matchingDao.getMatches(decoder.getEmailFromToken(authorization));
     }
 

@@ -27,7 +27,6 @@ public class HobbyDao {
 
         TypedQuery<Hobby> query = em.createQuery("SELECT h FROM Hobby h WHERE h.userId = :userId", Hobby.class);
         query.setParameter("userId", (long) userId);
-        System.out.println(query.getResultList());
         return query.getResultList();
     }
 

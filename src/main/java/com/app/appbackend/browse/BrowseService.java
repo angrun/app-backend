@@ -8,6 +8,7 @@ import com.app.appbackend.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ public class BrowseService {
     @Autowired
     UserDao usersDao;
 
-    List<UserDto> getAllUsers(FilterDto filterDto) {
+    List<UserDto> getAllUsers(FilterDto filterDto) throws IOException {
         return browseDao.getAllUsers(filterDto);
     }
 

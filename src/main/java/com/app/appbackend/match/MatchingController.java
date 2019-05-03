@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class MatchingController {
 
     @GetMapping("/all")
     @ApiOperation("Gets all users")
-    public List<UserDto> getAllUsers(@RequestHeader(value = "Authorization") String authorization) {
+    public List<UserDto> getAllUsers(@RequestHeader(value = "Authorization") String authorization) throws IOException {
         return matchingService.getMatches(authorization);
     }
 
