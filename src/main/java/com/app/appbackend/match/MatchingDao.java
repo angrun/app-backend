@@ -70,16 +70,6 @@ public class MatchingDao {
             List<Message> resultList1 = lastMessagequery.getResultList();
             Message lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1) : new Message(1L, 100L, 200L, "Say Hello to new friend!", false, LocalDateTime.now());
 
-
-            if (id != 1 && !lastMessage.getMessageSeen()) {
-                System.out.println("id = " + id);
-                System.out.println("fromuserid = " + lastMessage.getFromUserId());
-                System.out.println(lastMessage.getMessageSeen());
-
-
-            }
-
-
             int age = Utils.getUserAge(user.getBirth(), LocalDate.now());
 
             userDto.add(new UserDto(user.getId(),
@@ -97,11 +87,7 @@ public class MatchingDao {
                     new ArrayList<>(),
                     matching.seen,
                     lastMessage));
-
         }
-
-        userDto.sort((o2, o1) -> o1.getLastMessage().getDateSent().compareTo(o2.getLastMessage().getDateSent()));
-
         return userDto;
     }
 

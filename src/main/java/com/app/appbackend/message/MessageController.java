@@ -25,7 +25,6 @@ public class MessageController {
         messageService.sendMessage(messageView);
     }
 
-    //OR AN OBJECT ?
     @GetMapping("/all/{friendId}")
     public List<Message> getMessages(@RequestHeader(value="Authorization") String authorization, @PathVariable Integer friendId) {
         return messageService.getMessages(authorization, friendId);

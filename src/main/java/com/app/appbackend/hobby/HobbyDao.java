@@ -33,7 +33,6 @@ public class HobbyDao {
 
     @Transactional
     public void deleteHobby(HobbyDto hobbyDto) {
-        System.out.println("here");
         Query query1 = em.createQuery("DELETE FROM Hobby h WHERE h.name = :name AND h.userId = :userId");
         query1.setParameter("name", hobbyDto.getHobby()).setParameter("userId", hobbyDto.getUserId()).executeUpdate();
     }

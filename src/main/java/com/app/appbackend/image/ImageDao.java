@@ -26,7 +26,6 @@ import java.util.List;
 
 
 import static com.app.appbackend.utils.Utils.DEFAULT_PIC;
-import static com.app.appbackend.utils.Utils.SERVER_ADD;
 import static com.app.appbackend.utils.Utils.UPLOAD_ROOT;
 
 @Service
@@ -61,17 +60,17 @@ public class ImageDao {
         String filename = file.getOriginalFilename();
         validation.validateImage(filename);
 
-        boolean check = new File("images/", filename).exists();
+        boolean check = new File(UPLOAD_ROOT, filename).exists();
 
         if (!check) {
 
             if (!file.isEmpty()) {
-                Files.copy(file.getInputStream(), Paths.get("images/", file.getOriginalFilename()));
+                Files.copy(file.getInputStream(), Paths.get(UPLOAD_ROOT, file.getOriginalFilename()));
             }
         }
 
         Image image = new Image();
-        image.setName(UPLOAD_ROOT + "/" + filename);
+        image.setName(UPLOAD_ROOT + filename);
         image.setUserId(userId);
         image.setDateCreated(LocalDateTime.now());
         em.persist(image);
@@ -86,7 +85,7 @@ public class ImageDao {
         List<Image> rsList = new ArrayList<>();
 
         if (resultList.isEmpty()) {
-            resultList.add(new Image("images" + DEFAULT_PIC, userId, LocalDateTime.now()));
+            resultList.add(new Image(UPLOAD_ROOT + DEFAULT_PIC, userId, LocalDateTime.now()));
         }
 
         for (Image aResultList : resultList) {

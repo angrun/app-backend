@@ -18,12 +18,8 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-
-import static com.app.appbackend.utils.Utils.DEFAULT_PIC;
-import static com.app.appbackend.utils.Utils.SERVER_ADD;
 
 @Repository
 public class BrowseDao {
@@ -80,7 +76,7 @@ public class BrowseDao {
 
             //HOBBIES
             TypedQuery<Hobby> query = em.createQuery("SELECT h FROM Hobby h WHERE h.userId = :userId", Hobby.class);
-            query.setParameter("userId", (long) user.getId());
+            query.setParameter("userId", user.getId());
             List<Hobby> hobbies = query.getResultList();
 
             //AGE

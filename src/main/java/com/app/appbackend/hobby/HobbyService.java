@@ -2,7 +2,6 @@ package com.app.appbackend.hobby;
 
 
 import com.app.appbackend.exceptions.InvalidUserException;
-import com.app.appbackend.security.JwtDecoder;
 import com.app.appbackend.validation.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,14 +18,9 @@ public class HobbyService {
     @Autowired
     Validation validation;
 
-    private JwtDecoder decoder = new JwtDecoder();
-
-
     void addHobby(HobbyDto hobbyDto) throws InvalidUserException {
         validation.validateHobby(hobbyDto);
         hobbyDao.addHobby(hobbyDto);
-
-
     }
 
     List<Hobby> getHobbies(Integer userId) {

@@ -55,8 +55,6 @@ public class StatsService {
         List<UserAmountMessagesDto> res = new ArrayList<>();
 
         for (Object[] row : usersByMessages) {
-            System.out.println(row[0]);
-            System.out.println(row[1]);
             UserAmountMessagesDto userAmountMessagesDto = new UserAmountMessagesDto();
             userAmountMessagesDto.setAmountOfMessages((Long) row[0]);
             userAmountMessagesDto.setName((String) row[1]);

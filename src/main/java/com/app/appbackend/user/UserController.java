@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
-import java.util.Base64;
+
 
 
 @RestController
@@ -39,8 +38,6 @@ public class UserController {
     }
 
     @ApiOperation("Updates user information")
-
-
     @PostMapping("images")
     public void createFile(@RequestParam("file") MultipartFile file,
                            @RequestHeader(value = "Authorization") String authorization) throws InvalidUserException {
@@ -54,15 +51,4 @@ public class UserController {
         return userService.createFile();
     }
 
-//    @GetMapping(
-//            value = "/imagesTest"
-////            produces = MediaType.IMAGE_JPEG_VALUE
-//    )
-//    public  String getImage() throws IOException {
-//
-////        byte[] fileContent = FileUtils.readFileToByteArray(new File("../images/download.jpeg"));
-////        String encodedString = Base64.getEncoder().encodeToString(fileContent);
-////
-//        return null;
-//    }
 }

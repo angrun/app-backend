@@ -1,11 +1,7 @@
 package com.app.appbackend.utils;
 
-import com.app.appbackend.user.UserAmountMessagesDto;
-
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,9 +9,9 @@ public class Utils {
 
 //    public static final String SERVER_ADD = "http://" + InetAddress.getLoopbackAddress().getHostName();
     public static final String SERVER_ADD = "http://ec2-3-92-136-160.compute-1.amazonaws.com";
-    public static final String DEFAULT_PIC = "/anonym.png";
-    public static String UPLOAD_ROOT = "images"; //local
-//    public static String UPLOAD_ROOT = "images/";
+    public static final String DEFAULT_PIC = "anonym.png";
+    public static String UPLOAD_ROOT = "images/"; //local
+//    public static String UPLOAD_ROOT = "../images/";
     public static String ALLOWED_ADDRESS = "http://ec2-3-92-136-160.compute-1.amazonaws.com";
 //    public static String ALLOWED_ADDRESS = "http://localhost:8080";
     public static final int BAD_REQUEST = 400;
@@ -40,10 +36,4 @@ public class Utils {
         }
         return resultHashMap;
     }
-
-
-    public static void main(String[] args) {
-        System.out.println(getUserAge(LocalDate.of(1997, 10, 23), LocalDate.now()));
-    }
-
 }

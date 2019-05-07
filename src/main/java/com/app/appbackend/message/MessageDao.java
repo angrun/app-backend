@@ -22,6 +22,7 @@ public class MessageDao {
 
     @Transactional
     void sendMessage(MessageDto messageDto) {
+
         Message message = new Message();
 
         message.setFromUserId(messageDto.getFromUserId());
@@ -60,13 +61,11 @@ public class MessageDao {
     @Transactional
     void updateMessagesToBeSeen(String email, Integer friendId) {
 
-        System.out.println("herreeeeee! " + email);
 
         TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         query1.setParameter("email", email);
         User client = query1.getResultList().get(0);
         int userId = client.getId().intValue();
-
 
         Query query3 = em.createQuery("UPDATE Message m SET m.messageSeen = TRUE WHERE m.fromUserId = :friendId and m.toUserId = :userId");
         query3.setParameter("friendId", (long) friendId);

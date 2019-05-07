@@ -18,7 +18,10 @@ public class MatchingService {
     private JwtDecoder decoder = new JwtDecoder();
 
     List<UserDto> getMatches(String authorization) throws IOException {
-        return matchingDao.getMatches(decoder.getEmailFromToken(authorization));
+
+        List<UserDto> matches = matchingDao.getMatches(decoder.getEmailFromToken(authorization));
+        matches.sort((o2, o1) -> o1.getLastMessage().getDateSent().compareTo(o2.getLastMessage().getDateSent()));
+        return matches;
     }
 
 }

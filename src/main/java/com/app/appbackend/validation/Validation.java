@@ -22,9 +22,6 @@ public class Validation {
     @PersistenceContext
     public EntityManager em;
 
-    private Pattern pattern;
-    private Matcher matcher;
-
     private static final String IMAGE_PATTERN =
             "([^\\s]+(\\.(?i)(jpg|png|jpeg))$)";
 
@@ -44,7 +41,7 @@ public class Validation {
         }
     }
 
-    public void regEmailExists (String email) throws InvalidUserException {
+    private void regEmailExists(String email) throws InvalidUserException {
         TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         query1.setParameter("email", email);
 
@@ -58,7 +55,6 @@ public class Validation {
         query1.setParameter("email", email);
         query1.setParameter("id", id);
 
-        System.out.println(query1.getResultList());
         if (!query1.getResultList().isEmpty()) {
             throw new InvalidUserException("Person with such email already exists", BAD_REQUEST);
         }
@@ -67,8 +63,8 @@ public class Validation {
 
     public void validateImage(String image) throws InvalidUserException {
 
-        pattern = Pattern.compile(IMAGE_PATTERN);
-        matcher = pattern.matcher(image);
+        Pattern pattern = Pattern.compile(IMAGE_PATTERN);
+        Matcher matcher = pattern.matcher(image);
         if (!matcher.matches()) {
             throw new InvalidUserException("Allowed images formats: .jpg .png .jpeg", BAD_REQUEST);
         }
