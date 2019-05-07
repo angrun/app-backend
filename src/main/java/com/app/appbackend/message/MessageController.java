@@ -31,7 +31,7 @@ public class MessageController {
         return messageService.getMessages(authorization, friendId);
     }
 
-    @GetMapping()
+    @GetMapping("/{friendId}")
     public void updateMessagesToBeSeen(@RequestHeader(value="Authorization") String authorization, @PathVariable Integer friendId) {
         messageService.updateMessagesToBeSeen(authorization, friendId);
     }

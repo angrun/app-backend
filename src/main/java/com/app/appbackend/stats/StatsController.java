@@ -1,7 +1,9 @@
 package com.app.appbackend.stats;
 
 
+import com.app.appbackend.hobby.HobbyAmountDto;
 import com.app.appbackend.user.User;
+import com.app.appbackend.user.UserAmountMessagesDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,13 +49,13 @@ public class StatsController {
 
     @ApiOperation("Return users based on hobby")
     @GetMapping("/userByHobby")
-    public HashMap<String, Integer> getUsersByHobby() {
+    public List<HobbyAmountDto> getUsersByHobby() {
         return statsService.getUsersByHobby();
     }
 
     @ApiOperation("Return most talkative users")
     @GetMapping("/userByMessages")
-    public HashMap<String, Integer> getUsersByMessages() {
+    public List<UserAmountMessagesDto> getUsersByMessages() {
         return statsService.getUsersByMessages();
     }
 

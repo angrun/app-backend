@@ -4,27 +4,22 @@ import com.app.appbackend.image.Image;
 import com.app.appbackend.image.ImageDao;
 import com.app.appbackend.message.Message;
 import com.app.appbackend.user.User;
-import com.app.appbackend.utils.Utils;
 import com.app.appbackend.user.UserDto;
+import com.app.appbackend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
-import org.springframework.transaction.annotation.Transactional;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import static com.app.appbackend.utils.Utils.DEFAULT_PIC;
-import static com.app.appbackend.utils.Utils.SERVER_ADD;
 
 @Transactional
 @Repository
@@ -75,8 +70,13 @@ public class MatchingDao {
             List<Message> resultList1 = lastMessagequery.getResultList();
             Message lastMessage = resultList1.size() >= 1 ? resultList1.get(resultList1.size() - 1) : new Message(1L, 100L, 200L, "Say Hello to new friend!", false, LocalDateTime.now());
 
-            if (lastMessage.getFromUserId() == (long) id && !lastMessage.getMessage().equals("Say Hello to new friend")) {
-                lastMessage.setMessageSeen(true);
+
+            if (id != 1 && !lastMessage.getMessageSeen()) {
+                System.out.println("id = " + id);
+                System.out.println("fromuserid = " + lastMessage.getFromUserId());
+                System.out.println(lastMessage.getMessageSeen());
+
+
             }
 
 
@@ -99,6 +99,8 @@ public class MatchingDao {
                     lastMessage));
 
         }
+
+        userDto.sort((o2, o1) -> o1.getLastMessage().getDateSent().compareTo(o2.getLastMessage().getDateSent()));
 
         return userDto;
     }
