@@ -30,7 +30,7 @@ public class Validation {
 
     public void validateUserRegistration(User user) throws InvalidUserException {
 
-        emailExists(user.getEmail(), user.getId());
+        regEmailExists(user.getEmail());
 
 
         if (!user.getPassword().equals(user.getPassword2())) {
@@ -44,10 +44,21 @@ public class Validation {
         }
     }
 
-    public void emailExists (String email, Long id) throws InvalidUserException {
+    public void regEmailExists (String email) throws InvalidUserException {
         TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
         query1.setParameter("email", email);
 
+        if (!query1.getResultList().isEmpty()) {
+            throw new InvalidUserException("Person with such email already exists", BAD_REQUEST);
+        }
+    }
+
+    public void updateEmailExists (String email, Long id) throws InvalidUserException {
+        TypedQuery<User> query1 = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.id <> :id", User.class);
+        query1.setParameter("email", email);
+        query1.setParameter("id", id);
+
+        System.out.println(query1.getResultList());
         if (!query1.getResultList().isEmpty()) {
             throw new InvalidUserException("Person with such email already exists", BAD_REQUEST);
         }
